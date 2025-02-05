@@ -7,6 +7,9 @@ struct ContentView: View {
                 NavigationLink(destination: VisionTestView()) {
                     Label("Vision Test", systemImage: "eye")
                 }
+                NavigationLink(destination: LogMARTestView()) {
+                    Label("New Vision Test", systemImage: "eye")
+                }
                 NavigationLink(destination: MacularDegenerationTestView()) {
                     Label("Macular Test", systemImage: "eye.trianglebadge.exclamationmark")
                 }

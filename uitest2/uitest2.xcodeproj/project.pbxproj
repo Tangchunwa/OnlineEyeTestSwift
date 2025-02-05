@@ -25,6 +25,9 @@
 		5C47F7F92CA56039001BF41F /* uitest2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47F7F82CA56039001BF41F /* uitest2UITests.swift */; };
 		5C47F7FB2CA56039001BF41F /* uitest2UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47F7FA2CA56039001BF41F /* uitest2UITestsLaunchTests.swift */; };
 		5C47F8082CA5607B001BF41F /* VisionTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47F8072CA5607B001BF41F /* VisionTestView.swift */; };
+		5C85994E2D5382570073E994 /* newVisionTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C85994D2D53823E0073E994 /* newVisionTestView.swift */; };
+		5C8599502D5382A60073E994 /* VisionTestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C85994F2D53829B0073E994 /* VisionTestManager.swift */; };
+		5C8599522D53ACD70073E994 /* newVisionTestViewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8599512D53ACCC0073E994 /* newVisionTestViewResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +67,9 @@
 		5C47F7F82CA56039001BF41F /* uitest2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uitest2UITests.swift; sourceTree = "<group>"; };
 		5C47F7FA2CA56039001BF41F /* uitest2UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uitest2UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5C47F8072CA5607B001BF41F /* VisionTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionTestView.swift; sourceTree = "<group>"; };
+		5C85994D2D53823E0073E994 /* newVisionTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newVisionTestView.swift; sourceTree = "<group>"; };
+		5C85994F2D53829B0073E994 /* VisionTestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionTestManager.swift; sourceTree = "<group>"; };
+		5C8599512D53ACCC0073E994 /* newVisionTestViewResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newVisionTestViewResult.swift; sourceTree = "<group>"; };
 		5CE0FE5C2CAECF37004B77E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,8 +130,12 @@
 		5C47F7DC2CA56034001BF41F /* uitest2 */ = {
 			isa = PBXGroup;
 			children = (
+				5C8599512D53ACCC0073E994 /* newVisionTestViewResult.swift */,
+				5C85994D2D53823E0073E994 /* newVisionTestView.swift */,
+				5C85994F2D53829B0073E994 /* VisionTestManager.swift */,
 				0AC9B6A72D5344C6006D2BD1 /* ColorBlindnessTestView.swift */,
 				0AC9B6A82D5344C6006D2BD1 /* MacularDegenerationTestView.swift */,
+				5C47F8072CA5607B001BF41F /* VisionTestView.swift */,
 				0AC9B69C2D525197006D2BD1 /* FaceDistanceManager.swift */,
 				0AC9B69F2D525197006D2BD1 /* Preview Content */,
 				0AC9B6A02D525197006D2BD1 /* TestLevel.swift */,
@@ -135,7 +145,6 @@
 				5C47F7DF2CA56034001BF41F /* ContentView.swift */,
 				5C47F7E12CA56038001BF41F /* Assets.xcassets */,
 				5C47F7E32CA56038001BF41F /* Preview Content */,
-				5C47F8072CA5607B001BF41F /* VisionTestView.swift */,
 			);
 			path = uitest2;
 			sourceTree = "<group>";
@@ -305,8 +314,11 @@
 				5C47F7DE2CA56034001BF41F /* uitest2App.swift in Sources */,
 				5C47F8082CA5607B001BF41F /* VisionTestView.swift in Sources */,
 				0AC9B6A42D525197006D2BD1 /* VoiceInputManager.swift in Sources */,
+				5C85994E2D5382570073E994 /* newVisionTestView.swift in Sources */,
 				0AC9B6A52D525197006D2BD1 /* TestLevel.swift in Sources */,
+				5C8599502D5382A60073E994 /* VisionTestManager.swift in Sources */,
 				0AC9B6A62D525197006D2BD1 /* FaceDistanceManager.swift in Sources */,
+				5C8599522D53ACD70073E994 /* newVisionTestViewResult.swift in Sources */,
 				0AC9B6A92D5344C6006D2BD1 /* MacularDegenerationTestView.swift in Sources */,
 				0AC9B6AA2D5344C6006D2BD1 /* ColorBlindnessTestView.swift in Sources */,
 			);
@@ -472,7 +484,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"uitest2/Preview Content\"";
-				DEVELOPMENT_TEAM = H3PZ365UG8;
+				DEVELOPMENT_TEAM = 3Y8DX3285Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = uitest2/Info.plist;
@@ -491,7 +503,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = raymond.app;
+				PRODUCT_BUNDLE_IDENTIFIER = www.onlineeyetest.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -507,7 +519,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"uitest2/Preview Content\"";
-				DEVELOPMENT_TEAM = H3PZ365UG8;
+				DEVELOPMENT_TEAM = 3Y8DX3285Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = uitest2/Info.plist;
@@ -526,7 +538,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = raymond.app;
+				PRODUCT_BUNDLE_IDENTIFIER = www.onlineeyetest.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
