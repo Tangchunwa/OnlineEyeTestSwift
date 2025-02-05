@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0AC9B6A22D525197006D2BD1 /* too_close.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0AC9B69E2D525197006D2BD1 /* too_close.mp3 */; };
+		0AC9B6A32D525197006D2BD1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AC9B69D2D525197006D2BD1 /* Preview Assets.xcassets */; };
+		0AC9B6A42D525197006D2BD1 /* VoiceInputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC9B6A12D525197006D2BD1 /* VoiceInputManager.swift */; };
+		0AC9B6A52D525197006D2BD1 /* TestLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC9B6A02D525197006D2BD1 /* TestLevel.swift */; };
+		0AC9B6A62D525197006D2BD1 /* FaceDistanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC9B69C2D525197006D2BD1 /* FaceDistanceManager.swift */; };
+		0AC9B6A92D5344C6006D2BD1 /* MacularDegenerationTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC9B6A82D5344C6006D2BD1 /* MacularDegenerationTestView.swift */; };
+		0AC9B6AA2D5344C6006D2BD1 /* ColorBlindnessTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC9B6A72D5344C6006D2BD1 /* ColorBlindnessTestView.swift */; };
 		5C27AF702CA909510088EBFB /* too_close.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5C27AF6F2CA909510088EBFB /* too_close.mp3 */; };
 		5C27AF712CA909510088EBFB /* too_close.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5C27AF6F2CA909510088EBFB /* too_close.mp3 */; };
 		5C27AF722CA909510088EBFB /* too_close.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5C27AF6F2CA909510088EBFB /* too_close.mp3 */; };
@@ -18,7 +25,6 @@
 		5C47F7F92CA56039001BF41F /* uitest2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47F7F82CA56039001BF41F /* uitest2UITests.swift */; };
 		5C47F7FB2CA56039001BF41F /* uitest2UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47F7FA2CA56039001BF41F /* uitest2UITestsLaunchTests.swift */; };
 		5C47F8082CA5607B001BF41F /* VisionTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47F8072CA5607B001BF41F /* VisionTestView.swift */; };
-		5C47F80A2CA5622F001BF41F /* UIViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47F8092CA5622F001BF41F /* UIViewControllerRepresentable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +45,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0AC9B69C2D525197006D2BD1 /* FaceDistanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDistanceManager.swift; sourceTree = "<group>"; };
+		0AC9B69D2D525197006D2BD1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		0AC9B69E2D525197006D2BD1 /* too_close.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = too_close.mp3; sourceTree = "<group>"; };
+		0AC9B6A02D525197006D2BD1 /* TestLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestLevel.swift; sourceTree = "<group>"; };
+		0AC9B6A12D525197006D2BD1 /* VoiceInputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceInputManager.swift; sourceTree = "<group>"; };
+		0AC9B6A72D5344C6006D2BD1 /* ColorBlindnessTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBlindnessTestView.swift; sourceTree = "<group>"; };
+		0AC9B6A82D5344C6006D2BD1 /* MacularDegenerationTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacularDegenerationTestView.swift; sourceTree = "<group>"; };
 		5C27AF6F2CA909510088EBFB /* too_close.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = too_close.mp3; sourceTree = "<group>"; };
 		5C47F7DA2CA56034001BF41F /* uitest2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = uitest2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C47F7DD2CA56034001BF41F /* uitest2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uitest2App.swift; sourceTree = "<group>"; };
@@ -51,7 +64,6 @@
 		5C47F7F82CA56039001BF41F /* uitest2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uitest2UITests.swift; sourceTree = "<group>"; };
 		5C47F7FA2CA56039001BF41F /* uitest2UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uitest2UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5C47F8072CA5607B001BF41F /* VisionTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionTestView.swift; sourceTree = "<group>"; };
-		5C47F8092CA5622F001BF41F /* UIViewControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerRepresentable.swift; sourceTree = "<group>"; };
 		5CE0FE5C2CAECF37004B77E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,6 +92,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0AC9B69F2D525197006D2BD1 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				0AC9B69D2D525197006D2BD1 /* Preview Assets.xcassets */,
+				0AC9B69E2D525197006D2BD1 /* too_close.mp3 */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		5C47F7D12CA56034001BF41F = {
 			isa = PBXGroup;
 			children = (
@@ -103,13 +124,18 @@
 		5C47F7DC2CA56034001BF41F /* uitest2 */ = {
 			isa = PBXGroup;
 			children = (
+				0AC9B6A72D5344C6006D2BD1 /* ColorBlindnessTestView.swift */,
+				0AC9B6A82D5344C6006D2BD1 /* MacularDegenerationTestView.swift */,
+				0AC9B69C2D525197006D2BD1 /* FaceDistanceManager.swift */,
+				0AC9B69F2D525197006D2BD1 /* Preview Content */,
+				0AC9B6A02D525197006D2BD1 /* TestLevel.swift */,
+				0AC9B6A12D525197006D2BD1 /* VoiceInputManager.swift */,
 				5CE0FE5C2CAECF37004B77E4 /* Info.plist */,
 				5C47F7DD2CA56034001BF41F /* uitest2App.swift */,
 				5C47F7DF2CA56034001BF41F /* ContentView.swift */,
 				5C47F7E12CA56038001BF41F /* Assets.xcassets */,
 				5C47F7E32CA56038001BF41F /* Preview Content */,
 				5C47F8072CA5607B001BF41F /* VisionTestView.swift */,
-				5C47F8092CA5622F001BF41F /* UIViewControllerRepresentable.swift */,
 			);
 			path = uitest2;
 			sourceTree = "<group>";
@@ -246,6 +272,8 @@
 			files = (
 				5C47F7E52CA56038001BF41F /* Preview Assets.xcassets in Resources */,
 				5C47F7E22CA56038001BF41F /* Assets.xcassets in Resources */,
+				0AC9B6A22D525197006D2BD1 /* too_close.mp3 in Resources */,
+				0AC9B6A32D525197006D2BD1 /* Preview Assets.xcassets in Resources */,
 				5C27AF702CA909510088EBFB /* too_close.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -276,7 +304,11 @@
 				5C47F7E02CA56034001BF41F /* ContentView.swift in Sources */,
 				5C47F7DE2CA56034001BF41F /* uitest2App.swift in Sources */,
 				5C47F8082CA5607B001BF41F /* VisionTestView.swift in Sources */,
-				5C47F80A2CA5622F001BF41F /* UIViewControllerRepresentable.swift in Sources */,
+				0AC9B6A42D525197006D2BD1 /* VoiceInputManager.swift in Sources */,
+				0AC9B6A52D525197006D2BD1 /* TestLevel.swift in Sources */,
+				0AC9B6A62D525197006D2BD1 /* FaceDistanceManager.swift in Sources */,
+				0AC9B6A92D5344C6006D2BD1 /* MacularDegenerationTestView.swift in Sources */,
+				0AC9B6AA2D5344C6006D2BD1 /* ColorBlindnessTestView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,7 +472,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"uitest2/Preview Content\"";
-				DEVELOPMENT_TEAM = 3Y8DX3285Z;
+				DEVELOPMENT_TEAM = H3PZ365UG8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = uitest2/Info.plist;
@@ -459,7 +491,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = tcw.ttttt;
+				PRODUCT_BUNDLE_IDENTIFIER = raymond.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -475,7 +507,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"uitest2/Preview Content\"";
-				DEVELOPMENT_TEAM = 3Y8DX3285Z;
+				DEVELOPMENT_TEAM = H3PZ365UG8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = uitest2/Info.plist;
@@ -494,7 +526,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = tcw.ttttt;
+				PRODUCT_BUNDLE_IDENTIFIER = raymond.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
