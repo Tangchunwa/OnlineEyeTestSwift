@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -73,6 +73,10 @@
 		5CE0FE5C2CAECF37004B77E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		5C165CCC2D58B048003E3B3C /* Fronts */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Fronts; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		5C47F7D72CA56034001BF41F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -130,6 +134,7 @@
 		5C47F7DC2CA56034001BF41F /* uitest2 */ = {
 			isa = PBXGroup;
 			children = (
+				5C165CCC2D58B048003E3B3C /* Fronts */,
 				5C8599512D53ACCC0073E994 /* newVisionTestViewResult.swift */,
 				5C85994D2D53823E0073E994 /* newVisionTestView.swift */,
 				5C85994F2D53829B0073E994 /* VisionTestManager.swift */,
@@ -189,6 +194,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				5C165CCC2D58B048003E3B3C /* Fronts */,
 			);
 			name = uitest2;
 			productName = uitest2;

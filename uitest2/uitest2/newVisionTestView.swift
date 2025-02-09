@@ -30,7 +30,7 @@ struct LogMARTestView: View {
                         .frame(height: 200)
                     
                     Text(viewModel.currentLetters)
-                        .font(.system(size: viewModel.getCurrentFontSize()))
+                        .font(.custom("OpticianSans-Regular",size: viewModel.getCurrentFontSize()))
                         .fontWeight(.bold)
                         .tracking(10) // Letter spacing
                     
@@ -177,3 +177,8 @@ struct LogMARTestView: View {
 }
 
 
+struct Content_Previews:PreviewProvider{
+    static var previews: some View{
+        LogMARTestView()
+    }
+}
