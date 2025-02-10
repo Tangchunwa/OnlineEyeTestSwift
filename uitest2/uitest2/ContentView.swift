@@ -1,6 +1,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var isAccepted = UserDefaults.standard.bool(forKey: "TermsAccepted")
+
+    var body: some View {
+        if isAccepted {
+            MainNavigationView()
+        } else {
+            TermsOfAgreementView(isAccepted: $isAccepted)
+        }
+    }
+}
+
+// MARK: - Main App View (Your Original ContentView)
+struct MainNavigationView: View {
     var body: some View {
         NavigationView {
             List {
@@ -22,3 +35,5 @@ struct ContentView: View {
         .preferredColorScheme(.light)
     }
 }
+
+
