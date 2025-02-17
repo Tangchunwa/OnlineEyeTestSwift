@@ -165,6 +165,7 @@ struct LogMARTestView: View {
             .padding()
             .onAppear {
                 testManager.checkPermissions()
+                testManager.updateCurrentLetters() 
             }
 //            .alert(isPresented: .constant(testManager.currentEye == .left && !testManager.testCompleted)) {
 //                Alert(

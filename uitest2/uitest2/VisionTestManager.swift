@@ -84,7 +84,7 @@ class VisionTestManager: ObservableObject {
     }
     
     // Update current letters based on current eye and level
-    private func updateCurrentLetters() {
+    public func updateCurrentLetters() {
         let currentLevelLetters = getCurrentLevelLetters()
         if currentLevel < currentLevelLetters.count {
             currentLetters = currentLevelLetters[currentLevel].joined(separator: " ")
@@ -266,6 +266,8 @@ class VisionTestManager: ObservableObject {
           leftEyeLogMAR = 0.4
           rightEyeResults.removeAll()
           leftEyeResults.removeAll()
+        
+          updateCurrentLetters()
       }
     
     // Move to next level
