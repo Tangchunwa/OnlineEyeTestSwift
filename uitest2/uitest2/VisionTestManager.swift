@@ -2,9 +2,11 @@ import SwiftUI
 import Speech
 import AVFoundation
 
-class newVoiceInputManager: ObservableObject {
+class VisionTestManager: ObservableObject {
     // Published properties
     @Published var currentLevel = 0
+    let Level_limit = 5
+    
     @Published var currentLetters = ""
     @Published var userInput = ""
     @Published var isRecording = false
@@ -14,7 +16,24 @@ class newVoiceInputManager: ObservableObject {
     @Published var recordingAnimationOpacity = [1.0, 1.0, 1.0]
     @Published var timeoutCount = 0
     @Published var testCompleted = false
-    @Published var LogMarValue = 0.4
+    
+    // Added properties for handling both eyes
+    @Published var currentEye: Eye = .right
+    @Published var rightEyeLogMAR = 0.4
+    @Published var leftEyeLogMAR = 0.4
+    @Published var bothEyesCompleted = false
+    
+    enum Eye {
+        case left
+        case right
+        
+        var description: String {
+            switch self {
+            case .left: return "Left"
+            case .right: return "Right"
+            }
+        }
+    }
     
     // Private properties
     private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "zh-HK"))
@@ -29,23 +48,51 @@ class newVoiceInputManager: ObservableObject {
         "K", "N", "P", "R", "S", "T", "U", "V", "Z"
     ]
     
-    // Store current test letter sequence
-    private var currentLevelLetters: [[String]] = []
+    // Store test letter sequences for both eyes
+    private var rightEyeLevelLetters: [[String]] = []
+    private var leftEyeLevelLetters: [[String]] = []
+    
+    // Store results for both eyes
+    private var rightEyeResults: [Int: Bool] = [:]
+    private var leftEyeResults: [Int: Bool] = [:]
     
     // Initialization
     init() {
-        generateAllLevels()
+        generateAllLevelsForBothEyes()
     }
     
-    // Generate all levels of letters
-    private func generateAllLevels() {
-        currentLevelLetters = [
+    // Generate different letter sequences for both eyes
+    private func generateAllLevelsForBothEyes() {
+        rightEyeLevelLetters = [
             generateLettersForLevel(count: 3), // Level 1
             generateLettersForLevel(count: 3), // Level 2
             generateLettersForLevel(count: 4), // Level 3
             generateLettersForLevel(count: 4), // Level 4
             generateLettersForLevel(count: 5)  // Level 5
         ]
+        
+        leftEyeLevelLetters = [
+            generateLettersForLevel(count: 3), // Level 1
+            generateLettersForLevel(count: 3), // Level 2
+            generateLettersForLevel(count: 4), // Level 3
+            generateLettersForLevel(count: 4), // Level 4
+            generateLettersForLevel(count: 5)  // Level 5
+        ]
+        
+        // Set initial letters for right eye
+        updateCurrentLetters()
+    }
+    
+    // Update current letters based on current eye and level
+    public func updateCurrentLetters() {
+        let currentLevelLetters = getCurrentLevelLetters()
+        if currentLevel < currentLevelLetters.count {
+            currentLetters = currentLevelLetters[currentLevel].joined(separator: " ")
+        }
+    }
+    // Get current level letters based on which eye is being tested
+    private func getCurrentLevelLetters() -> [[String]] {
+        return currentEye == .right ? rightEyeLevelLetters : leftEyeLevelLetters
     }
     
     // Generate random letters for a single level
@@ -61,12 +108,37 @@ class newVoiceInputManager: ObservableObject {
         return baseFontSize * pow(scaleFactor, CGFloat(currentLevel))
     }
     
+   
     // Regenerate current level letters
     private func regenerateCurrentLevel() {
-        let count = currentLevelLetters[currentLevel].count
-        currentLevelLetters[currentLevel] = generateLettersForLevel(count: count)
-        currentLetters = currentLevelLetters[currentLevel].joined(separator: " ")
+        let count = getCurrentLevelLetters()[currentLevel].count
+        let newLetters = generateLettersForLevel(count: count)
+        
+        if currentEye == .right {
+            rightEyeLevelLetters[currentLevel] = newLetters
+        } else {
+            leftEyeLevelLetters[currentLevel] = newLetters
+        }
+        
+        updateCurrentLetters()
     }
+    
+    // Switch to testing the other eye
+        private func switchEye() {
+            if currentEye == .right {
+                currentEye = .left
+                currentLevel = 0
+                timeoutCount = 0
+                statusMessage = "Switching to Left Eye"
+                leftEyeLogMAR = 0.4
+                updateCurrentLetters() // Generate new letters for left eye
+            } else {
+                bothEyesCompleted = true
+                testCompleted = true
+                statusMessage = "Both eyes tested!"
+            }
+        }
+        
     
     // Check permissions
     func checkPermissions() {
@@ -88,7 +160,7 @@ class newVoiceInputManager: ObservableObject {
         }
     }
     
-    // Start recording
+    // Recording functions (keep the same as in original code)
     func startRecording() {
         let audioSession = AVAudioSession.sharedInstance()
         do {
@@ -121,7 +193,7 @@ class newVoiceInputManager: ObservableObject {
             try audioEngine.start()
             
             isRecording = true
-            currentLetters = currentLevelLetters[currentLevel].joined(separator: " ")
+            updateCurrentLetters()
             startTimer()
             startRecordingAnimation()
             
@@ -132,66 +204,94 @@ class newVoiceInputManager: ObservableObject {
     
     // Process recognized text
     private func processRecognizedText(_ text: String) {
-        if text.contains("AGAIN") {
-            statusMessage = "Detected 'AGAIN', restarting"
+        if text.contains("RETRY") {
+            statusMessage = "Detected 'RETRY', restarting"
             regenerateCurrentLevel()
             restartCurrentLevel()
             return
         }
-        if currentLevel >= currentLevelLetters.count { return } // Bug fix (out of index)
-        let currentLevelLetters = self.currentLevelLetters[currentLevel]
-        let success = currentLevelLetters.allSatisfy { text.contains($0) }
+        
+        let currentLevelLetters = getCurrentLevelLetters()
+        if currentLevel >= currentLevelLetters.count { return }
+        
+        let success = currentLevelLetters[currentLevel].allSatisfy { text.contains($0) }
         
         if success {
-            //AudioServicesPlaySystemSound(1004) // Success sound
+            if currentEye == .right {
+                rightEyeResults[currentLevel] = true
+            } else {
+                leftEyeResults[currentLevel] = true
+            }
             moveToNextLevel()
         }
     }
     func processInputText() {
-        let userInputLetters = userInput.uppercased().filter { !$0.isWhitespace }
-               
-       // Get current level's correct sequence
-        let correctSequence = currentLevelLetters[currentLevel].joined()
-       
-       // Check for exact sequence match
-        let success = userInputLetters == correctSequence
+           let userInputLetters = userInput.uppercased().filter { !$0.isWhitespace }
+           let correctSequence = getCurrentLevelLetters()[currentLevel].joined()
+           let success = userInputLetters == correctSequence
+           
+           if success {
+               if currentEye == .right {
+                   rightEyeResults[currentLevel] = true
+               } else {
+                   leftEyeResults[currentLevel] = true
+               }
+               moveToNextLevel()
+           } else {
+               if currentEye == .right {
+                   rightEyeResults[currentLevel] = false
+                   switchEye()
+               } else {
+                   leftEyeResults[currentLevel] = false
+                   testCompleted = true
+               }
+           }
+       }
         
-        if success {
-            moveToNextLevel()
-        }
-        else{
-            testCompleted=true
-        }
-    }
     
     func restartTest() {
-        stopRecording()
-        generateAllLevels()
-        currentLevel = 0
-        currentLetters = ""
-        userInput = ""
-        //isRecording = false
-        recognizedText = ""
-        timeRemaining = 10
-        statusMessage = "Ready to start"
-        timeoutCount = 0
-        testCompleted = false
-        LogMarValue = 0.4
-        // Reset other necessary properties
-    }
+          stopRecording()
+          generateAllLevelsForBothEyes()
+          currentLevel = 0
+          currentEye = .right
+          currentLetters = ""
+          userInput = ""
+          recognizedText = ""
+          timeRemaining = 10
+          statusMessage = "Ready to start with Right Eye"
+          timeoutCount = 0
+          testCompleted = false
+          bothEyesCompleted = false
+          rightEyeLogMAR = 0.4
+          leftEyeLogMAR = 0.4
+          rightEyeResults.removeAll()
+          leftEyeResults.removeAll()
+        
+          updateCurrentLetters()
+      }
     
     // Move to next level
     private func moveToNextLevel() {
         currentLevel += 1
-        if currentLevel < currentLevelLetters.count {
-            statusMessage = "Success! Entering level \(currentLevel + 1)"
+        if currentLevel < Level_limit {
+            statusMessage = "Success! Entering level \(currentLevel + 1) for \(currentEye.description) Eye"
             timeoutCount = 0
-            LogMarValue -= 0.1
+            
+            // Update LogMAR value for the current eye
+            if currentEye == .right {
+                rightEyeLogMAR -= 0.1
+            } else {
+                leftEyeLogMAR -= 0.1
+            }
+            
             restartRecording()
         } else {
-            statusMessage = "Test completed!"
-            stopRecording()
-            testCompleted = true
+            switchEye()
+            if !bothEyesCompleted {
+                restartRecording()
+            } else {
+                stopRecording()
+            }
         }
     }
     
