@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		0AC9B6A22D525197006D2BD1 /* too_close.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0AC9B69E2D525197006D2BD1 /* too_close.mp3 */; };
 		0AC9B6A32D525197006D2BD1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AC9B69D2D525197006D2BD1 /* Preview Assets.xcassets */; };
-		0AC9B6A42D525197006D2BD1 /* VoiceInputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC9B6A12D525197006D2BD1 /* VoiceInputManager.swift */; };
-		0AC9B6A52D525197006D2BD1 /* TestLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC9B6A02D525197006D2BD1 /* TestLevel.swift */; };
 		0AC9B6A62D525197006D2BD1 /* FaceDistanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC9B69C2D525197006D2BD1 /* FaceDistanceManager.swift */; };
 		0AC9B6A92D5344C6006D2BD1 /* MacularDegenerationTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC9B6A82D5344C6006D2BD1 /* MacularDegenerationTestView.swift */; };
 		0AC9B6AA2D5344C6006D2BD1 /* ColorBlindnessTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC9B6A72D5344C6006D2BD1 /* ColorBlindnessTestView.swift */; };
@@ -24,7 +22,6 @@
 		5C47F7EF2CA56039001BF41F /* uitest2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47F7EE2CA56039001BF41F /* uitest2Tests.swift */; };
 		5C47F7F92CA56039001BF41F /* uitest2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47F7F82CA56039001BF41F /* uitest2UITests.swift */; };
 		5C47F7FB2CA56039001BF41F /* uitest2UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47F7FA2CA56039001BF41F /* uitest2UITestsLaunchTests.swift */; };
-		5C47F8082CA5607B001BF41F /* VisionTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47F8072CA5607B001BF41F /* VisionTestView.swift */; };
 		5C85994E2D5382570073E994 /* newVisionTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C85994D2D53823E0073E994 /* newVisionTestView.swift */; };
 		5C8599502D5382A60073E994 /* VisionTestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C85994F2D53829B0073E994 /* VisionTestManager.swift */; };
 		5C8599522D53ACD70073E994 /* newVisionTestViewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8599512D53ACCC0073E994 /* newVisionTestViewResult.swift */; };
@@ -52,8 +49,6 @@
 		0AC9B69C2D525197006D2BD1 /* FaceDistanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDistanceManager.swift; sourceTree = "<group>"; };
 		0AC9B69D2D525197006D2BD1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0AC9B69E2D525197006D2BD1 /* too_close.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = too_close.mp3; sourceTree = "<group>"; };
-		0AC9B6A02D525197006D2BD1 /* TestLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestLevel.swift; sourceTree = "<group>"; };
-		0AC9B6A12D525197006D2BD1 /* VoiceInputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceInputManager.swift; sourceTree = "<group>"; };
 		0AC9B6A72D5344C6006D2BD1 /* ColorBlindnessTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBlindnessTestView.swift; sourceTree = "<group>"; };
 		0AC9B6A82D5344C6006D2BD1 /* MacularDegenerationTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacularDegenerationTestView.swift; sourceTree = "<group>"; };
 		5C27AF6F2CA909510088EBFB /* too_close.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = too_close.mp3; sourceTree = "<group>"; };
@@ -67,7 +62,6 @@
 		5C47F7F42CA56039001BF41F /* uitest2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = uitest2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C47F7F82CA56039001BF41F /* uitest2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uitest2UITests.swift; sourceTree = "<group>"; };
 		5C47F7FA2CA56039001BF41F /* uitest2UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uitest2UITestsLaunchTests.swift; sourceTree = "<group>"; };
-		5C47F8072CA5607B001BF41F /* VisionTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionTestView.swift; sourceTree = "<group>"; };
 		5C85994D2D53823E0073E994 /* newVisionTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newVisionTestView.swift; sourceTree = "<group>"; };
 		5C85994F2D53829B0073E994 /* VisionTestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionTestManager.swift; sourceTree = "<group>"; };
 		5C8599512D53ACCC0073E994 /* newVisionTestViewResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newVisionTestViewResult.swift; sourceTree = "<group>"; };
@@ -142,11 +136,8 @@
 				5C85994F2D53829B0073E994 /* VisionTestManager.swift */,
 				0AC9B6A72D5344C6006D2BD1 /* ColorBlindnessTestView.swift */,
 				0AC9B6A82D5344C6006D2BD1 /* MacularDegenerationTestView.swift */,
-				5C47F8072CA5607B001BF41F /* VisionTestView.swift */,
 				0AC9B69C2D525197006D2BD1 /* FaceDistanceManager.swift */,
 				0AC9B69F2D525197006D2BD1 /* Preview Content */,
-				0AC9B6A02D525197006D2BD1 /* TestLevel.swift */,
-				0AC9B6A12D525197006D2BD1 /* VoiceInputManager.swift */,
 				5CE0FE5C2CAECF37004B77E4 /* Info.plist */,
 				5C47F7DD2CA56034001BF41F /* uitest2App.swift */,
 				5C47F7DF2CA56034001BF41F /* ContentView.swift */,
@@ -324,10 +315,7 @@
 				B077FA852D5A560800C18AE4 /* TermsOfAgreementView.swift in Sources */,
 				5C47F7E02CA56034001BF41F /* ContentView.swift in Sources */,
 				5C47F7DE2CA56034001BF41F /* uitest2App.swift in Sources */,
-				5C47F8082CA5607B001BF41F /* VisionTestView.swift in Sources */,
-				0AC9B6A42D525197006D2BD1 /* VoiceInputManager.swift in Sources */,
 				5C85994E2D5382570073E994 /* newVisionTestView.swift in Sources */,
-				0AC9B6A52D525197006D2BD1 /* TestLevel.swift in Sources */,
 				5C8599502D5382A60073E994 /* VisionTestManager.swift in Sources */,
 				0AC9B6A62D525197006D2BD1 /* FaceDistanceManager.swift in Sources */,
 				5C8599522D53ACD70073E994 /* newVisionTestViewResult.swift in Sources */,
