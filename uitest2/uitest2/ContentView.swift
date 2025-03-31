@@ -12,14 +12,11 @@ struct ContentView: View {
     }
 }
 
-// MARK: - Main App View (Your Original ContentView)
+// MARK: - Main App View
 struct MainNavigationView: View {
     var body: some View {
         NavigationView {
             List {
-                NavigationLink(destination: VisionTestView()) {
-                    Label("Vision Test", systemImage: "eye")
-                }
                 NavigationLink(destination: LogMARTestView()) {
                     Label("New Vision Test", systemImage: "eye")
                 }
