@@ -17,7 +17,6 @@
 		5C27AF722CA909510088EBFB /* too_close.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5C27AF6F2CA909510088EBFB /* too_close.mp3 */; };
 		5C47F7DE2CA56034001BF41F /* uitest2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47F7DD2CA56034001BF41F /* uitest2App.swift */; };
 		5C47F7E02CA56034001BF41F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47F7DF2CA56034001BF41F /* ContentView.swift */; };
-		5C47F7E22CA56038001BF41F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C47F7E12CA56038001BF41F /* Assets.xcassets */; };
 		5C47F7E52CA56038001BF41F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C47F7E42CA56038001BF41F /* Preview Assets.xcassets */; };
 		5C47F7EF2CA56039001BF41F /* uitest2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47F7EE2CA56039001BF41F /* uitest2Tests.swift */; };
 		5C47F7F92CA56039001BF41F /* uitest2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47F7F82CA56039001BF41F /* uitest2UITests.swift */; };
@@ -26,6 +25,7 @@
 		5C8599502D5382A60073E994 /* VisionTestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C85994F2D53829B0073E994 /* VisionTestManager.swift */; };
 		5C8599522D53ACD70073E994 /* newVisionTestViewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8599512D53ACCC0073E994 /* newVisionTestViewResult.swift */; };
 		B077FA852D5A560800C18AE4 /* TermsOfAgreementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B077FA842D5A560800C18AE4 /* TermsOfAgreementView.swift */; };
+		B0A235C32DA2F2C30084E9DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0A235C22DA2F2C30084E9DB /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,7 +55,6 @@
 		5C47F7DA2CA56034001BF41F /* uitest2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = uitest2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C47F7DD2CA56034001BF41F /* uitest2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uitest2App.swift; sourceTree = "<group>"; };
 		5C47F7DF2CA56034001BF41F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		5C47F7E12CA56038001BF41F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5C47F7E42CA56038001BF41F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5C47F7EA2CA56039001BF41F /* uitest2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = uitest2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C47F7EE2CA56039001BF41F /* uitest2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uitest2Tests.swift; sourceTree = "<group>"; };
@@ -67,6 +66,7 @@
 		5C8599512D53ACCC0073E994 /* newVisionTestViewResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newVisionTestViewResult.swift; sourceTree = "<group>"; };
 		5CE0FE5C2CAECF37004B77E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B077FA842D5A560800C18AE4 /* TermsOfAgreementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfAgreementView.swift; sourceTree = "<group>"; };
+		B0A235C22DA2F2C30084E9DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -141,9 +141,9 @@
 				5CE0FE5C2CAECF37004B77E4 /* Info.plist */,
 				5C47F7DD2CA56034001BF41F /* uitest2App.swift */,
 				5C47F7DF2CA56034001BF41F /* ContentView.swift */,
-				5C47F7E12CA56038001BF41F /* Assets.xcassets */,
 				5C47F7E32CA56038001BF41F /* Preview Content */,
 				B077FA842D5A560800C18AE4 /* TermsOfAgreementView.swift */,
+				B0A235C22DA2F2C30084E9DB /* Assets.xcassets */,
 			);
 			path = uitest2;
 			sourceTree = "<group>";
@@ -282,9 +282,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C47F7E52CA56038001BF41F /* Preview Assets.xcassets in Resources */,
-				5C47F7E22CA56038001BF41F /* Assets.xcassets in Resources */,
 				0AC9B6A22D525197006D2BD1 /* too_close.mp3 in Resources */,
 				0AC9B6A32D525197006D2BD1 /* Preview Assets.xcassets in Resources */,
+				B0A235C32DA2F2C30084E9DB /* Assets.xcassets in Resources */,
 				5C27AF702CA909510088EBFB /* too_close.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -485,7 +485,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"uitest2/Preview Content\"";
-				DEVELOPMENT_TEAM = 3Y8DX3285Z;
+				DEVELOPMENT_TEAM = AZNLU6J472;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = uitest2/Info.plist;
@@ -504,7 +504,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tcwpanda.onlineeyetest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jackthecoconut.onlineeyetest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -522,7 +522,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"uitest2/Preview Content\"";
-				DEVELOPMENT_TEAM = 3Y8DX3285Z;
+				DEVELOPMENT_TEAM = AZNLU6J472;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = uitest2/Info.plist;
@@ -541,7 +541,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tcwpanda.onlineeyetest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jackthecoconut.onlineeyetest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
