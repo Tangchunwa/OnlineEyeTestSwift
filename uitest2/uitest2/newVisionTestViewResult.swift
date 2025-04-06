@@ -28,15 +28,15 @@ struct VisionTestResultView: View {
     private func getVisionQuality(from logMAR: Double) -> String {
         switch logMAR {
         case -0.01...0.01:
-            return "Normal or Better"
+            return "normal_or_better".localized
         case 0.01...0.30:
-            return "Mild Vision Loss"
+            return "mild_vision_loss".localized
         case 0.30...0.70:
-            return "Moderate Vision Loss"
+            return "moderate_vision_loss".localized
         case 0.70...1.00:
-            return "Severe Vision Loss"
+            return "severe_vision_loss".localized
         default:
-            return "Invalid"
+            return "invalid".localized
         }
     }
     
@@ -60,13 +60,13 @@ struct VisionTestResultView: View {
         ScrollView {
             VStack(spacing: 30) {
                 // Title
-                Text("Vision Test Results")
+                Text("vision_test_results".localized)
                     .font(.largeTitle)
                     .fontWeight(.bold)
                 
                 // Right Eye Results
                 ResultCard(
-                    eye: "Right Eye",
+                    eye: "right_eye".localized,
                     logMAR: rightEyeLogMAR,
                     decimalAcuity: getDecimalAcuity(from: rightEyeLogMAR),
                     snellenNotation: getSnellenNotation(from: rightEyeLogMAR),
@@ -76,7 +76,7 @@ struct VisionTestResultView: View {
                 
                 // Left Eye Results
                 ResultCard(
-                    eye: "Left Eye",
+                    eye: "left_eye".localized,
                     logMAR: leftEyeLogMAR,
                     decimalAcuity: getDecimalAcuity(from: leftEyeLogMAR),
                     snellenNotation: getSnellenNotation(from: leftEyeLogMAR),
@@ -84,43 +84,6 @@ struct VisionTestResultView: View {
                     qualityColor: getQualityColor(from: leftEyeLogMAR)
                 )
                 
-                // Additional Information
-                VStack(alignment: .leading, spacing: 15) {
-                    Text("Understanding Your Results")
-                        .font(.headline)
-                        .padding(.bottom, 5)
-                    
-                    InfoRow(
-                        title: "LogMAR",
-                        description: "Logarithm of the Minimum Angle of Resolution. Lower values indicate better vision."
-                    )
-                    
-                    InfoRow(
-                        title: "Decimal Acuity",
-                        description: "A decimal representation of vision sharpness. Higher values indicate better vision."
-                    )
-                    
-                    InfoRow(
-                        title: "Snellen Notation",
-                        description: "Traditional vision measurement. Shows what you can see at 6 meters compared to normal vision."
-                    )
-                }
-                .padding()
-                .background(
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.gray.opacity(0.1))
-                )
-                
-                // Test Information
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("Test Information")
-                        .font(.headline)
-                    
-                    Text("Test Date: \(formatDate(Date()))")
-                        .foregroundColor(.gray)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding()
             }
             .padding()
         }
@@ -157,14 +120,14 @@ struct ResultCard: View {
             
             Divider()
             
-            ResultRow(title: "LogMAR Value", value: String(format: "%.2f", logMAR))
-            ResultRow(title: "Decimal Acuity", value: String(format: "%.2f", decimalAcuity))
-            ResultRow(title: "Snellen Notation", value: snellenNotation)
+            ResultRow(title: "logmar_value".localized, value: String(format: "%.2f", logMAR))
+            ResultRow(title: "decimal_acuity".localized, value: String(format: "%.2f", decimalAcuity))
+            ResultRow(title: "snellen_notation".localized, value: snellenNotation)
             
             Divider()
             
             VStack(alignment: .leading, spacing: 5) {
-                Text("Vision Quality")
+                Text("vision_quality".localized)
                     .fontWeight(.medium)
                 Text(visionQuality)
                     .foregroundColor(qualityColor)

@@ -2,17 +2,15 @@ import SwiftUI
 
 struct TermsOfAgreementView: View {
     @Binding var isAccepted: Bool  // Binding to track whether user accepts the terms
-
+    @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
         VStack {
             ScrollView {
                 Text("""
-                    Terms of Agreement
+                    \("terms_title".localized)
 
-                    By using this application, you agree to the following terms and conditions.
-                    [Add your detailed terms here...]
-
-                    Please read carefully before proceeding.
+                    \("terms_content".localized)
                     """)
                     .padding()
             }
@@ -20,8 +18,9 @@ struct TermsOfAgreementView: View {
             Button(action: {
                 UserDefaults.standard.set(true, forKey: "TermsAccepted")
                 isAccepted = true
+                dismiss()
             }) {
-                Text("I Agree")
+                Text("i_agree".localized)
                     .font(.headline)
                     .foregroundColor(.white)
                     .frame(width: 200, height: 50)
@@ -30,5 +29,6 @@ struct TermsOfAgreementView: View {
             }
             .padding()
         }
+        .background(Color.white)
     }
 }

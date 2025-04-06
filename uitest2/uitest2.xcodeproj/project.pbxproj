@@ -12,6 +12,11 @@
 		0AC9B6A62D525197006D2BD1 /* FaceDistanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC9B69C2D525197006D2BD1 /* FaceDistanceManager.swift */; };
 		0AC9B6A92D5344C6006D2BD1 /* MacularDegenerationTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC9B6A82D5344C6006D2BD1 /* MacularDegenerationTestView.swift */; };
 		0AC9B6AA2D5344C6006D2BD1 /* ColorBlindnessTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC9B6A72D5344C6006D2BD1 /* ColorBlindnessTestView.swift */; };
+		0AD4A5612DA2C8C20095A921 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD4A5602DA2C8C20095A921 /* WelcomeView.swift */; };
+		0AD4A5622DA2C8C20095A921 /* TestResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD4A55F2DA2C8C20095A921 /* TestResultsView.swift */; };
+		0AD4A5632DA2C8C20095A921 /* PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD4A55E2DA2C8C20095A921 /* PermissionManager.swift */; };
+		0AD4A5672DA2D7D60095A921 /* TestTransitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD4A5662DA2D7D60095A921 /* TestTransitionView.swift */; };
+		0AD4A5692DA2E09B0095A921 /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD4A5682DA2E09B0095A921 /* LocalizationManager.swift */; };
 		5C27AF702CA909510088EBFB /* too_close.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5C27AF6F2CA909510088EBFB /* too_close.mp3 */; };
 		5C27AF712CA909510088EBFB /* too_close.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5C27AF6F2CA909510088EBFB /* too_close.mp3 */; };
 		5C27AF722CA909510088EBFB /* too_close.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5C27AF6F2CA909510088EBFB /* too_close.mp3 */; };
@@ -51,6 +56,11 @@
 		0AC9B69E2D525197006D2BD1 /* too_close.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = too_close.mp3; sourceTree = "<group>"; };
 		0AC9B6A72D5344C6006D2BD1 /* ColorBlindnessTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBlindnessTestView.swift; sourceTree = "<group>"; };
 		0AC9B6A82D5344C6006D2BD1 /* MacularDegenerationTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacularDegenerationTestView.swift; sourceTree = "<group>"; };
+		0AD4A55E2DA2C8C20095A921 /* PermissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionManager.swift; sourceTree = "<group>"; };
+		0AD4A55F2DA2C8C20095A921 /* TestResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultsView.swift; sourceTree = "<group>"; };
+		0AD4A5602DA2C8C20095A921 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		0AD4A5662DA2D7D60095A921 /* TestTransitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTransitionView.swift; sourceTree = "<group>"; };
+		0AD4A5682DA2E09B0095A921 /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
 		5C27AF6F2CA909510088EBFB /* too_close.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = too_close.mp3; sourceTree = "<group>"; };
 		5C47F7DA2CA56034001BF41F /* uitest2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = uitest2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C47F7DD2CA56034001BF41F /* uitest2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uitest2App.swift; sourceTree = "<group>"; };
@@ -130,6 +140,11 @@
 		5C47F7DC2CA56034001BF41F /* uitest2 */ = {
 			isa = PBXGroup;
 			children = (
+				0AD4A5682DA2E09B0095A921 /* LocalizationManager.swift */,
+				0AD4A5662DA2D7D60095A921 /* TestTransitionView.swift */,
+				0AD4A55E2DA2C8C20095A921 /* PermissionManager.swift */,
+				0AD4A55F2DA2C8C20095A921 /* TestResultsView.swift */,
+				0AD4A5602DA2C8C20095A921 /* WelcomeView.swift */,
 				5C165CCC2D58B048003E3B3C /* Fronts */,
 				5C8599512D53ACCC0073E994 /* newVisionTestViewResult.swift */,
 				5C85994D2D53823E0073E994 /* newVisionTestView.swift */,
@@ -314,10 +329,15 @@
 			files = (
 				B077FA852D5A560800C18AE4 /* TermsOfAgreementView.swift in Sources */,
 				5C47F7E02CA56034001BF41F /* ContentView.swift in Sources */,
+				0AD4A5692DA2E09B0095A921 /* LocalizationManager.swift in Sources */,
 				5C47F7DE2CA56034001BF41F /* uitest2App.swift in Sources */,
 				5C85994E2D5382570073E994 /* newVisionTestView.swift in Sources */,
 				5C8599502D5382A60073E994 /* VisionTestManager.swift in Sources */,
 				0AC9B6A62D525197006D2BD1 /* FaceDistanceManager.swift in Sources */,
+				0AD4A5672DA2D7D60095A921 /* TestTransitionView.swift in Sources */,
+				0AD4A5612DA2C8C20095A921 /* WelcomeView.swift in Sources */,
+				0AD4A5622DA2C8C20095A921 /* TestResultsView.swift in Sources */,
+				0AD4A5632DA2C8C20095A921 /* PermissionManager.swift in Sources */,
 				5C8599522D53ACD70073E994 /* newVisionTestViewResult.swift in Sources */,
 				0AC9B6A92D5344C6006D2BD1 /* MacularDegenerationTestView.swift in Sources */,
 				0AC9B6AA2D5344C6006D2BD1 /* ColorBlindnessTestView.swift in Sources */,
@@ -485,7 +505,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"uitest2/Preview Content\"";
-				DEVELOPMENT_TEAM = 3Y8DX3285Z;
+				DEVELOPMENT_TEAM = H3PZ365UG8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = uitest2/Info.plist;
@@ -522,7 +542,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"uitest2/Preview Content\"";
-				DEVELOPMENT_TEAM = 3Y8DX3285Z;
+				DEVELOPMENT_TEAM = H3PZ365UG8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = uitest2/Info.plist;
