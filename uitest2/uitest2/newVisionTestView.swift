@@ -3,28 +3,51 @@ import Speech
 import AVFoundation
 
 struct LogMARTestView: View {
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var testManager = VisionTestManager()
     @StateObject private var faceDistanceManager = FaceDistanceManager()
     @State private var showingInstructions = true
-    @State private var showingSwitchEyesAlert = false
+    var onComplete: (() -> Void)?
     
     var body: some View {
         if showingInstructions {
             EyeTestInstructionsView(showingInstructions: $showingInstructions)
+                .onDisappear {
+                    // Start camera when instructions disappear (test starts)
+                    faceDistanceManager.startCameraDetection()
+                }
         } else if !testManager.testCompleted {
             VStack(spacing: 20) {
+                
                 // Title and current eye/level information
                 VStack {
-                    Text("Vision Test")
+                    Text("vision_test".localized)
                         .font(.largeTitle)
                         .fontWeight(.bold)
                     
-                    Text("\(testManager.currentEye.description) Eye - Level \(testManager.currentLevel + 1)/5")
+                    Text("\(testManager.currentEye.description) \("eye".localized) - \("level".localized) \(testManager.currentLevel + 1)/5")
                         .font(.title2)
                         .foregroundColor(.blue)
                     
                     // Eye coverage reminder
-                    EyeCoverageReminderView(currentEye: testManager.currentEye)
+                    if(testManager.currentEye == .right){//test right eye first
+                        EyeCoverageReminderView(currentEye: testManager.currentEye).onDisappear(
+                            perform: {
+                                //first close camera ,then set distance to 0,then send alert switch to right eye then open camera
+                                faceDistanceManager.stopCameraDetection()
+                                faceDistanceManager.distance=0
+                                let alert = UIAlertController(title: "switch_to_left_eye".localized, message: "please_cover_right_eye".localized, preferredStyle: .alert)
+                                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+                                    faceDistanceManager.startCameraDetection()
+                                }))
+                                UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
+                            }
+                        )}
+                    else{EyeCoverageReminderView(currentEye: testManager.currentEye)
+                        
+                        
+                        
+                    }
                 }
                 
                // Spacer()
@@ -67,7 +90,7 @@ struct LogMARTestView: View {
                 
                 // Distance indicator
                 VStack(spacing: 5) {
-                    Text("Current Distance: \(String(format: "%.2f", faceDistanceManager.distance))m")
+                    Text("\("current_distance".localized): \(String(format: "%.2f", faceDistanceManager.distance))m")
                         .font(.subheadline)
                         .foregroundColor(faceDistanceManager.isInIdealRange ? .green : .red)
                     
@@ -96,12 +119,10 @@ struct LogMARTestView: View {
                         .foregroundColor(testManager.timeRemaining <= 3 ? .red : .blue)
                     Text("\(testManager.timeRemaining)s")
                         .fontWeight(.semibold)
-                }
-                
-                // Recording status and control button
-                VStack(spacing: 15) {
                     if testManager.isRecording {
                         // Recording animation indicator
+                        Text("listening".localized)
+                            .foregroundColor(.red)
                         HStack(spacing: 5) {
                             ForEach(0..<3) { index in
                                 Circle()
@@ -116,16 +137,19 @@ struct LogMARTestView: View {
                                     )
                             }
                         }
-                        Text("Listening...")
-                            .foregroundColor(.red)
                     }
+                }
+                
+                // Recording status and control button
+                VStack(spacing: 15) {
+      
                     
                     Button(action: {
                         testManager.toggleRecording()
                     }) {
                         HStack {
                             Image(systemName: testManager.isRecording ? "stop.circle.fill" : "mic.circle.fill")
-                            Text(testManager.isRecording ? "Stop Voice Input" : "Start Voice Input")
+                            Text(testManager.isRecording ? "stop_voice_input".localized : "start_voice_input".localized)
                         }
                         .font(.title2)
                         .padding(.horizontal, 30)
@@ -136,24 +160,25 @@ struct LogMARTestView: View {
                     }
                 }
                 
-                Spacer()
+                //Spacer()
                 
                 // Debug information area
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("Debug")
+                    Text("input_letters".localized)
                         .font(.headline)
-                    TextField("Enter letters", text: $testManager.userInput)
+                    TextField("enter_letters".localized, text: $testManager.userInput)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .autocapitalization(.allCharacters)
                     
-                    Button("Confirm Answer") {
+                    Button("confirm_answer".localized) {
                         testManager.processInputText()
+                        testManager.userInput=""
                     }
                     .buttonStyle(.bordered)
                     .disabled(testManager.userInput.isEmpty)
                     
                     VStack(alignment: .leading) {
-                        Text("Recognized: \(testManager.recognizedText)")
+                        Text("\("recognized".localized): \(testManager.recognizedText)")
                             .font(.subheadline)
                             .foregroundColor(.gray)
                     }
@@ -167,30 +192,31 @@ struct LogMARTestView: View {
                 testManager.checkPermissions()
                 testManager.updateCurrentLetters() 
             }
-//            .alert(isPresented: .constant(testManager.currentEye == .left && !testManager.testCompleted)) {
-//                Alert(
-//                    title: Text("Switch Eyes"),
-//                    message: Text("Please cover your RIGHT eye now to test your LEFT eye."),
-//                    dismissButton: .default(Text("OK"))
-//                )
-//            }
+            .onDisappear{
+                faceDistanceManager.stopCameraDetection()
+                testManager.stopRecording()
+            }
         } else {
-            VStack(spacing: 20) {
-                VisionTestResultView(
-                    rightEyeLogMAR: testManager.rightEyeLogMAR,
-                    leftEyeLogMAR: testManager.leftEyeLogMAR
-                )
-                
-                Button(action: {
-                    testManager.restartTest()
-                    showingInstructions = true
-                }) {
-                    Text("Restart Test")
+            // When test is completed, immediately call onComplete
+            Color.white.overlay(
+                VStack {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .scaleEffect(1.5)
+                    
+                    Text("preparing_next_test".localized)
                         .font(.headline)
-                        .foregroundColor(.white)
-                        .frame(width: 200, height: 50)
-                        .background(Color.blue)
-                        .cornerRadius(10)
+                        .padding()
+                }
+            )
+            .onAppear {
+                // 停止相機和錄音
+                faceDistanceManager.stopCameraDetection()
+                testManager.stopRecording()
+                
+                // 短暫延遲後調用 onComplete
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    onComplete?()
                 }
             }
         }
@@ -198,9 +224,9 @@ struct LogMARTestView: View {
     
     private func getDistanceMessage() -> String {
         if faceDistanceManager.distance < 0.55 {
-            return "Please move back\nIdeal distance: 55-60cm"
+            return "please_move_back".localized
         } else {
-            return "Please move closer\nIdeal distance: 55-60cm"
+            return "please_move_closer".localized
         }
     }
 }
@@ -211,39 +237,39 @@ struct EyeTestInstructionsView: View {
     
     var body: some View {
         VStack(spacing: 30) {
-            Text("Vision Test Instructions")
+            Text("vision_test_instructions".localized)
                 .font(.largeTitle)
                 .fontWeight(.bold)
             
             VStack(alignment: .leading, spacing: 20) {
                 InstructionStep(
                     number: 1,
-                    title: "Prepare Your Environment",
-                    description: "Find a well-lit room and ensure you're in a comfortable position."
+                    title: "prepare_environment".localized,
+                    description: "find_well_lit_room".localized
                 )
                 
                 InstructionStep(
                     number: 2,
-                    title: "Distance",
-                    description: "Position yourself 55-60cm from the screen."
+                    title: "distance".localized,
+                    description: "position_distance".localized
                 )
                 
                 InstructionStep(
                     number: 3,
-                    title: "Right Eye Test",
-                    description: "Cover your LEFT eye completely with your palm or an eye patch."
+                    title: "right_eye_test".localized,
+                    description: "cover_left_eye".localized
                 )
                 
                 InstructionStep(
                     number: 4,
-                    title: "Left Eye Test",
-                    description: "After completing the right eye test, you'll be prompted to cover your RIGHT eye."
+                    title: "left_eye_test".localized,
+                    description: "after_right_eye".localized
                 )
                 
                 InstructionStep(
                     number: 5,
-                    title: "Voice Input",
-                    description: "Speak the letters you see clearly and confidently."
+                    title: "voice_input".localized,
+                    description: "speak_letters".localized
                 )
             }
             .padding()
@@ -256,7 +282,7 @@ struct EyeTestInstructionsView: View {
             Button(action: {
                 showingInstructions = false
             }) {
-                Text("Start Test")
+                Text("start_test".localized)
                     .font(.headline)
                     .foregroundColor(.white)
                     .frame(width: 200, height: 50)
@@ -307,7 +333,7 @@ struct EyeCoverageReminderView: View {
             Image(systemName: "eye.fill")
                 .foregroundColor(.red)
             
-            Text("Please cover your \(currentEye == .right ? "LEFT" : "RIGHT") eye")
+            Text(currentEye == .right ? "please_cover_left_eye".localized : "please_cover_right_eye".localized)
                 .font(.headline)
                 .foregroundColor(.red)
         }
