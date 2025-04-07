@@ -49,7 +49,7 @@ struct LocalizedStringKey {
         
         // Terms
         "terms_title": "Terms of Agreement",
-        "terms_content": "By using this application, you agree to the following terms and conditions.\n[Add your detailed terms here...]\n\nPlease read carefully before proceeding.",
+        "terms_content": "By using this application, you agree to the following terms and conditions.\n[Add your detailed terms here...testing]\n\nPlease read carefully before proceeding.",
         "i_agree": "I Agree",
         
         // Permissions
