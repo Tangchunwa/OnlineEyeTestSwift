@@ -4,6 +4,7 @@ import AVFoundation
 class FaceDistanceManager: NSObject, ObservableObject, ARSessionDelegate {
     @Published var distance: Float = 0.0
     @Published var isInIdealRange: Bool = false
+    @Published var isTracking: Bool = false
     
     private let minIdealDistance: Float = 0.55 // 55 cm
     private let maxIdealDistance: Float = 0.60 // 60 cm
@@ -16,8 +17,38 @@ class FaceDistanceManager: NSObject, ObservableObject, ARSessionDelegate {
     
     override init() {
         super.init()
-        setupAudioPlayer()
-        setupARSession()
+        // Don't automatically start AR session on init
+        arSession = ARSession()
+        arSession?.delegate = self
+    }
+    
+    // Function to start camera detection
+    func startCameraDetection() {
+        guard ARFaceTrackingConfiguration.isSupported else {
+            print("Face tracking is not supported on this device.")
+            return
+        }
+        
+        let timestamp = getCurrentTimestamp()
+        print("Camera detection started at: \(timestamp)")
+        
+        let configuration = ARFaceTrackingConfiguration()
+        arSession?.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        isTracking = true
+    }
+    
+    // Function to stop camera detection
+    func stopCameraDetection() {
+        let timestamp = getCurrentTimestamp()
+        print("Camera detection stopped at: \(timestamp)")
+        
+        arSession?.pause()
+        isTracking = false
+        
+        // Reset values
+        distance = 0.0
+        isInIdealRange = false
+        lastDistance = 1.0
     }
     
     /// Setup ARKit session for face tracking
@@ -27,15 +58,14 @@ class FaceDistanceManager: NSObject, ObservableObject, ARSessionDelegate {
             return
         }
         
-        arSession = ARSession()
-        arSession?.delegate = self
-        
         let configuration = ARFaceTrackingConfiguration()
         arSession?.run(configuration, options: [])
     }
     
     /// Called when ARKit updates face tracking data
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
+        guard isTracking else { return } // Only process updates if tracking is active
+        
         if let faceAnchor = frame.anchors.compactMap({ $0 as? ARFaceAnchor }).first {
             let facePosition = faceAnchor.transform.columns.3
             let newDistance = sqrt(facePosition.x * facePosition.x +
@@ -55,37 +85,34 @@ class FaceDistanceManager: NSObject, ObservableObject, ARSessionDelegate {
     func updateDistance(_ newDistance: Float) {
         distance = newDistance
         isInIdealRange = (newDistance >= minIdealDistance && newDistance <= maxIdealDistance)
-        
-        if !isInIdealRange {
-            playWarningAudio()
-        }
     }
     
-    /// Setup warning audio
-    private func setupAudioPlayer() {
-        guard let soundURL = Bundle.main.url(forResource: "too_close", withExtension: "mp3") else {
-            print("Audio file not found")
-            return
-        }
-        
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
-            audioPlayer?.prepareToPlay()
-        } catch {
-            print("Error setting up audio player: \(error.localizedDescription)")
-        }
+    // Helper function to get current timestamp
+    private func getCurrentTimestamp() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+        return formatter.string(from: Date())
     }
     
-    /// Play warning sound when the user is too close or too far
-    private func playWarningAudio() {
-        let currentTime = Date()
-        
-        if let lastPlayTime = lastAudioPlayTime,
-           currentTime.timeIntervalSince(lastPlayTime) < 3 {
-            return
+    // Handle session errors
+    func session(_ session: ARSession, didFailWithError error: Error) {
+        let timestamp = getCurrentTimestamp()
+        print("AR Session failed at \(timestamp) with error: \(error.localizedDescription)")
+    }
+    
+    // Handle session interruption
+    func sessionWasInterrupted(_ session: ARSession) {
+        let timestamp = getCurrentTimestamp()
+        print("AR Session was interrupted at: \(timestamp)")
+    }
+    
+    // Handle session interruption ended
+    func sessionInterruptionEnded(_ session: ARSession) {
+        let timestamp = getCurrentTimestamp()
+        print("AR Session interruption ended at: \(timestamp)")
+        if isTracking {
+            setupARSession() // Restart tracking if it was active
         }
-        
-        audioPlayer?.play()
-        lastAudioPlayTime = currentTime
     }
 }

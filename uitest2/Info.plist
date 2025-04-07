@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Optician-Sans.otf</string>
+	</array>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>此應用需要訪問照片庫來保存您的測試報告</string>
+</dict>
+</plist>

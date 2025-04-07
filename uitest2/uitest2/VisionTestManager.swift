@@ -19,9 +19,11 @@ class VisionTestManager: ObservableObject {
     
     // Added properties for handling both eyes
     @Published var currentEye: Eye = .right
-    @Published var rightEyeLogMAR = 0.4
-    @Published var leftEyeLogMAR = 0.4
     @Published var bothEyesCompleted = false
+    
+    // Static properties for LogMAR values
+    static var rightEyeLogMAR = 0.5
+    static var leftEyeLogMAR = 0.5
     
     enum Eye {
         case left
@@ -130,7 +132,7 @@ class VisionTestManager: ObservableObject {
                 currentLevel = 0
                 timeoutCount = 0
                 statusMessage = "Switching to Left Eye"
-                leftEyeLogMAR = 0.4
+                stopRecording()
                 updateCurrentLetters() // Generate new letters for left eye
             } else {
                 bothEyesCompleted = true
@@ -219,8 +221,10 @@ class VisionTestManager: ObservableObject {
         if success {
             if currentEye == .right {
                 rightEyeResults[currentLevel] = true
+                VisionTestManager.rightEyeLogMAR -= 0.1
             } else {
                 leftEyeResults[currentLevel] = true
+                VisionTestManager.leftEyeLogMAR -= 0.1
             }
             moveToNextLevel()
         }
@@ -233,8 +237,10 @@ class VisionTestManager: ObservableObject {
            if success {
                if currentEye == .right {
                    rightEyeResults[currentLevel] = true
+                   VisionTestManager.rightEyeLogMAR -= 0.1
                } else {
                    leftEyeResults[currentLevel] = true
+                   VisionTestManager.leftEyeLogMAR -= 0.1
                }
                moveToNextLevel()
            } else {
@@ -249,26 +255,26 @@ class VisionTestManager: ObservableObject {
        }
         
     
-    func restartTest() {
-          stopRecording()
-          generateAllLevelsForBothEyes()
-          currentLevel = 0
-          currentEye = .right
-          currentLetters = ""
-          userInput = ""
-          recognizedText = ""
-          timeRemaining = 10
-          statusMessage = "Ready to start with Right Eye"
-          timeoutCount = 0
-          testCompleted = false
-          bothEyesCompleted = false
-          rightEyeLogMAR = 0.4
-          leftEyeLogMAR = 0.4
-          rightEyeResults.removeAll()
-          leftEyeResults.removeAll()
-        
-          updateCurrentLetters()
-      }
+//    func restartTest() {
+//          stopRecording()
+//          generateAllLevelsForBothEyes()
+//          currentLevel = 0
+//          currentEye = .right
+//          currentLetters = ""
+//          userInput = ""
+//          recognizedText = ""
+//          timeRemaining = 10
+//          statusMessage = "Ready to start with Right Eye"
+//          timeoutCount = 0
+//          testCompleted = false
+//          bothEyesCompleted = false
+//          rightEyeLogMAR = 0.4
+//          leftEyeLogMAR = 0.4
+//          rightEyeResults.removeAll()
+//          leftEyeResults.removeAll()
+//        
+//          updateCurrentLetters()
+//      }
     
     // Move to next level
     private func moveToNextLevel() {
@@ -277,13 +283,7 @@ class VisionTestManager: ObservableObject {
             statusMessage = "Success! Entering level \(currentLevel + 1) for \(currentEye.description) Eye"
             timeoutCount = 0
             
-            // Update LogMAR value for the current eye
-            if currentEye == .right {
-                rightEyeLogMAR -= 0.1
-            } else {
-                leftEyeLogMAR -= 0.1
-            }
-            
+
             restartRecording()
         } else {
             switchEye()
@@ -341,9 +341,10 @@ class VisionTestManager: ObservableObject {
                 self.statusMessage = "Time's up, restarting"
                 timeoutCount += 1
                 if self.timeoutCount >= 3 {
-                    testCompleted = true
+                    processInputText()
+                }else{
+                    self.restartCurrentLevel()
                 }
-                self.restartCurrentLevel()
             }
         }
     }

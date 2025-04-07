@@ -2,79 +2,122 @@ import SwiftUI
 
 struct MacularDegenerationTestView: View {
     @State private var result = ""
-    @State private var showResult = false
     @State private var selectedOption: String?
+    @State private var isTransitioning = false
+    var onComplete: (() -> Void)?
     
-    let options = [
-        "All lines appear straight",
-        "Some lines appear wavy",
-        "Some lines are missing",
-        "I see dark or blurry areas",
-        "The lines look distorted"
-    ]
+    // 這裡應該同時提供英文和中文的選項，根據當前語言選擇
+    var options: [String] {
+        if LocalizationManager.shared.currentLanguage == .chinese {
+            return [
+                "所有線條都是直的",
+                "部分線條出現彎曲",
+                "部分線條缺失",
+                "我看到暗淡或模糊的區域",
+                "線條看起來變形"
+            ]
+        } else {
+            return [
+                "All lines appear straight",
+                "Some lines appear wavy",
+                "Some lines are missing",
+                "I see dark or blurry areas",
+                "The lines look distorted"
+            ]
+        }
+    }
     
     var body: some View {
-        VStack(spacing: 20) {
-            Text("Macular Degeneration Test")
-                .font(.title)
-                .multilineTextAlignment(.center)
-            
-            if !showResult {
-                Image("amsler_grid")  // Replace "amsler_grid" with your image name
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 250, height: 250)
+        if isTransitioning {
+            // 顯示過渡畫面
+            Color.white.overlay(
+                VStack {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .scaleEffect(1.5)
+                    
+                    Text("preparing_next_test".localized)
+                        .font(.headline)
+                        .padding()
+                }
+            )
+            .onAppear {
+                // 短暫延遲後調用 onComplete
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    onComplete?()
+                }
+            }
+        } else {
+            VStack(spacing: 25) {
+                Text("macular_test".localized)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
                 
-                Text("How do the grid lines appear to you?")
-                    .font(.headline)
+                Text("Amsler Grid Test")
+                    .font(.title3)
+                    .foregroundColor(.gray)
                 
-                ForEach(options, id: \.self) { option in
-                    Button(action: {
-                        selectedOption = option
-                        checkResult(option)
-                        showResult = true
-                    }) {
-                        Text(option)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                // Amsler 格線圖像
+                ZStack {
+                    Image("amsler_grid")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 300, height: 300)
+                }
+                .padding(.vertical)
+                
+                Text("macular_explanation".localized)
+                    .font(.body)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
+                
+                // 選項列表
+                VStack(alignment: .leading, spacing: 15) {
+                    ForEach(options, id: \.self) { option in
+                        HStack {
+                            Image(systemName: selectedOption == option ? "checkmark.circle.fill" : "circle")
+                                .foregroundColor(selectedOption == option ? .blue : .gray)
+                            
+                            Text(option)
+                                .font(.body)
+                            
+                            Spacer()
+                        }
+                        .padding(.vertical, 5)
+                        .onTapGesture {
+                            handleOptionTap(option)
+                        }
                     }
                 }
-            } else {
-                Text("Test Complete")
-                    .font(.title)
-                    .padding()
-                
-                Text(result)
-                    .padding()
-                    .multilineTextAlignment(.center)
-                
-                Button("Take Test Again") {
-                    resetTest()
-                }
                 .padding()
-                .background(Color.green)
-                .foregroundColor(.white)
+                .background(Color(.systemGray6))
                 .cornerRadius(10)
+                .padding(.horizontal)
             }
-        }
-        .padding()
-    }
-    
-    func checkResult(_ selectedOption: String) {
-        switch selectedOption {
-        case "All lines appear straight":
-            result = "Your test result appears normal. However, regular eye check-ups are still recommended."
-        default:
-            result = "Based on your selection, it's advisable to consult an eye care professional for a comprehensive evaluation. Changes in how you see the Amsler grid can be a sign of macular degeneration or other eye conditions."
+            .padding()
+            .background(Color.white)
         }
     }
     
-    func resetTest() {
-        selectedOption = nil
-        result = ""
-        showResult = false
+    private func handleOptionTap(_ option: String) {
+        selectedOption = option
+        
+        // 根據選擇設置結果
+        if option == options[0] { // 所有線條都是直的 / All lines appear straight
+            result = LocalizationManager.shared.currentLanguage == .chinese ? 
+                "正常，未檢測到黃斑部問題。" : 
+                "Normal, no macular issues detected."
+        } else {
+            result = LocalizationManager.shared.currentLanguage == .chinese ? 
+                "可能有黃斑部問題，建議進一步檢查。" : 
+                "Possible macular issues, further examination recommended."
+        }
+        
+        // 保存測試選擇和結果
+        UserDefaults.standard.set(option, forKey: "MacularTestOption")
+        UserDefaults.standard.set(result, forKey: "MacularTestResult")
+        
+        // 設置過渡
+        isTransitioning = true
     }
 }
