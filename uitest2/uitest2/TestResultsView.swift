@@ -77,9 +77,9 @@ struct TestResultsView: View {
                                 if colorTestScore == colorTestTotal {
                                     Text("excellent".localized)
                                         .foregroundColor(.green)
-                                } else if colorTestScore >= colorTestTotal / 2 {
-                                    Text("acceptable".localized)
-                                        .foregroundColor(.blue)
+//                                } else if colorTestScore >= colorTestTotal / 2 {
+//                                    Text("acceptable".localized)
+//                                        .foregroundColor(.blue)
                                 } else {
                                     Text("needs_attention".localized)
                                         .foregroundColor(.red)
@@ -329,13 +329,13 @@ struct ReportCardView: View {
                 HStack {
                     Text("\("right_eye".localized):  \(rightEyeAcuity <= 0.33 ? "N/A" : String(format: "%.2f", rightEyeAcuity))")
                     Spacer()
-                    StatusIndicator(value: rightEyeAcuity, threshold: 0.3)
+                    StatusIndicator(value: rightEyeAcuity, threshold: 0.5)
                 }
 
                 HStack {
                     Text("\("left_eye".localized):  \(leftEyeAcuity <= 0.33 ? "N/A" : String(format: "%.2f", leftEyeAcuity))")
                     Spacer()
-                    StatusIndicator(value: leftEyeAcuity, threshold: 0.3)
+                    StatusIndicator(value: leftEyeAcuity, threshold: 0.5)
                 }
             }
             .padding()
@@ -454,7 +454,6 @@ struct ReportCardView: View {
 struct StatusIndicator: View {
     let value: Double
     let threshold: Double
-    
     var body: some View {
         HStack(spacing: 2) {
             ForEach(0..<5) { i in
@@ -466,10 +465,20 @@ struct StatusIndicator: View {
     }
     
     private func circleColor(for index: Int) -> Color {
+        // Normalize value between 0 and 1
         let normalizedValue = min(1.0, max(0.0, value))
-        let percentage = normalizedValue
         
-        let threshold = Double(index) / 4.0
-        return percentage >= threshold ? .green : .gray
+        // Calculate how many circles should be filled
+        let filledCircles = (normalizedValue * 4.0).rounded() + 1  // Multiply by 4 since we want 5 steps (0, 0.25, 0.5, 0.75, 1.0)
+        
+        // First determine if the circle should be filled
+        let shouldBeFilled = Double(index) < filledCircles
+        
+        if shouldBeFilled {
+            // If the value is below threshold, use red; otherwise use green
+            return normalizedValue < threshold ? .red : .green
+        } else {
+            return .gray
+        }
     }
 }
