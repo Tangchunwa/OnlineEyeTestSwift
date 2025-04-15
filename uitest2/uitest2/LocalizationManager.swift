@@ -49,8 +49,9 @@ struct LocalizedStringKey {
         
         // Terms
         "terms_title": "Terms of Agreement",
-        "terms_content": "By using this application, you agree to the following terms and conditions.\n[Add your detailed terms here...testing]\n\nPlease read carefully before proceeding.",
-        "i_agree": "I Agree",
+        "terms_content": "By using this application, you agree to the following terms and conditions:\n\n1. **Acceptance of Terms**: By accessing or using this application, you agree to be bound by these Terms of Agreement and any updates posted within the application.\n\n2. **User Conduct**: You agree to use the application only for lawful purposes. You will not engage in any activity that disrupts or interferes with the application's functionality or security.\n\n3. **Intellectual Property**: All content, logos, and materials within the application are owned by or licensed to us. You may not reproduce, distribute, or modify any content without prior written consent.\n\n4. **Privacy**: Your use of the application is subject to our Privacy Policy, which outlines how we collect, use, and protect your data.\n\n5. **Termination**: We reserve the right to suspend or terminate your access to the application at any time, with or without notice, for any violation of these terms.\n\n6. **Disclaimer**: The application is provided 'as is' without warranties of any kind. We are not liable for any damages arising from your use of the application.\n\n7. **Changes to Terms**: We may update these terms from time to time. Continued use of the application after changes constitutes acceptance of the new terms.\n\nPlease read carefully before proceeding.",
+        "i_agree": "I have read and agree to the Terms of Agreement and Privacy Policy",
+        "next": "Next",
         
         // Permissions
         "permission_required": "Permission Required",
@@ -67,6 +68,8 @@ struct LocalizedStringKey {
         "continue_next_test": "Continue to Next Test",
         "preparing_next_test": "Preparing for the next test...",
         "processing_results": "Processing your results...",
+        "preparing_results": "Preparing your final report...",
+        "analyzing_color_vision": "Analyzing your color vision test results...",
         "all_tests_completed": "All tests completed, processing results...",
         
         // Test Names
@@ -179,8 +182,9 @@ struct LocalizedStringKey {
         
         // 條款
         "terms_title": "使用條款",
-        "terms_content": "使用本應用程式，即表示您同意以下條款和條件。\n[在此添加您的詳細條款...]\n\n請在繼續前仔細閱讀。",
-        "i_agree": "我同意",
+        "terms_content": "使用本應用程式即表示您同意以下條款與條件：\n\n1. **接受條款**：一旦您訪問或使用本應用程式，即表示您同意遵守本使用條款及其在應用程式內發布的任何更新。\n\n2. **用戶行為**：您同意僅將本應用程式用於合法目的，不得從事任何擾亂或干擾應用程式功能或安全性的活動。\n\n3. **智慧財產權**：應用程式內的所有內容、標誌和資料均屬我們所有或經我們授權許可。未經事先書面同意，您不得複製、分發或修改任何內容。\n\n4. **隱私權**：您使用本應用程式須遵守我們的隱私政策，該政策說明了我們如何收集、使用和保護您的資料。\n\n5. **終止服務**：我們保留隨時暫停或終止您對本應用程式的訪問權利的權利，無需事先通知，且適用於任何違反本條款的情況。\n\n6. **免責聲明**：本應用程式按「現狀」提供，不提供任何形式的擔保。我們對您使用本應用程式所產生的任何損害不承擔責任。\n\n7. **條款變更**：我們可能會不時更新本條款。您在條款變更後繼續使用本應用程式即表示接受新條款。\n\n請在使用前仔細閱讀。",
+        "i_agree": "我已閱讀並同意使用條款和隱私政策",
+        "next": "下一步",
         
         // 權限
         "permission_required": "需要權限",
@@ -197,6 +201,8 @@ struct LocalizedStringKey {
         "continue_next_test": "繼續下一項測試",
         "preparing_next_test": "正在準備下一個測試...",
         "processing_results": "正在處理您的結果...",
+        "preparing_results": "正在準備您的最終報告...",
+        "analyzing_color_vision": "正在分析您的色覺測試結果...",
         "all_tests_completed": "所有測試已完成，正在處理結果...",
         
         // 測試名稱

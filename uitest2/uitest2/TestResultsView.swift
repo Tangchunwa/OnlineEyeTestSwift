@@ -31,155 +31,169 @@ struct TestResultsView: View {
     }
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 25) {
-                Text("\("test_results_for".localized) \(username)")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .padding(.top)
-                
-                // 1. Vision Test Results
-                VisionTestResultView(
-                    rightEyeLogMAR: VisionTestManager.rightEyeLogMAR,
-                    leftEyeLogMAR: VisionTestManager.leftEyeLogMAR
-                )
-                
-                // 2. Macular Test Results
-                TestCard(title: "macular_test".localized) {
-                    VStack(alignment: .leading, spacing: 10) {
-                        if macularTestOption != "未完成" {
-                            Text("\("your_selection".localized) \(macularTestOption)")
-                                .font(.subheadline)
-                            
-                            Text("\("result".localized) ")
-                                .font(.headline) +
-                            Text(macularTestResult)
-                                .font(.body)
-                                .foregroundColor(macularTestOption == "All lines appear straight" ? .green : .orange)
-                        } else {
-                            Text("no_data".localized)
-                                .foregroundColor(.gray)
-                        }
-                    }
-                }
-                
-                // 3. Color Test Results
-                TestCard(title: "color_test".localized) {
-                    VStack(alignment: .leading, spacing: 10) {
-                        if colorTestTotal > 0 {
-                            Text("\("your_score".localized) \(colorTestScore) \("out_of".localized) \(colorTestTotal)")
-                                .font(.subheadline)
-                            
-                            HStack {
-                                Text("\("performance".localized) ")
-                                    .font(.headline)
+        ZStack {
+            // 添加漸變背景
+            GradientBackgroundView()
+            
+            ScrollView {
+                VStack(spacing: 25) {
+                    Text("\("test_results_for".localized) \(username)")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .padding(.top, 50)
+                    
+                    // 1. Vision Test Results
+                    VisionTestResultView(
+                        rightEyeLogMAR: VisionTestManager.rightEyeLogMAR,
+                        leftEyeLogMAR: VisionTestManager.leftEyeLogMAR
+                    )
+                    
+                    // 2. Macular Test Results
+                    TestCard(title: "macular_test".localized) {
+                        VStack(alignment: .leading, spacing: 10) {
+                            if macularTestOption != "未完成" {
+                                Text("\("your_selection".localized) \(macularTestOption)")
+                                    .font(.subheadline)
                                 
-                                if colorTestScore == colorTestTotal {
-                                    Text("excellent".localized)
-                                        .foregroundColor(.green)
-//                                } else if colorTestScore >= colorTestTotal / 2 {
-//                                    Text("acceptable".localized)
-//                                        .foregroundColor(.blue)
-                                } else {
-                                    Text("needs_attention".localized)
-                                        .foregroundColor(.red)
-                                }
+                                Text("\("result".localized) ")
+                                    .font(.headline) +
+                                Text(macularTestResult)
+                                    .font(.body)
+                                    .foregroundColor(macularTestOption == "All lines appear straight" ? .green : .orange)
+                            } else {
+                                Text("no_data".localized)
+                                    .foregroundColor(.gray)
                             }
-                            
-                            Text(colorTestResult)
-                                .font(.body)
-                                .padding(.top, 5)
-                        } else {
-                            Text("no_data".localized)
-                                .foregroundColor(.gray)
                         }
                     }
-                }
-                
-                // 4. 測試說明資訊
-                VStack(alignment: .leading, spacing: 15) {
-                    Text("understanding_results".localized)
-                        .font(.headline)
-                        .padding(.bottom, 5)
                     
-                    InfoRow(
-                        title: "LogMAR Test",
-                        description: "decimal_acuity_explanation".localized
-                    )
+                    // 3. Color Test Results
+                    TestCard(title: "color_test".localized) {
+                        VStack(alignment: .leading, spacing: 10) {
+                            if colorTestTotal > 0 {
+                                Text("\("your_score".localized) \(colorTestScore) \("out_of".localized) \(colorTestTotal)")
+                                    .font(.subheadline)
+                                
+                                HStack {
+                                    Text("\("performance".localized) ")
+                                        .font(.headline)
+                                    
+                                    if colorTestScore == colorTestTotal {
+                                        Text("excellent".localized)
+                                            .foregroundColor(.green)
+                                    } else {
+                                        Text("needs_attention".localized)
+                                            .foregroundColor(.red)
+                                    }
+                                }
+                                
+                                Text(colorTestResult)
+                                    .font(.body)
+                                    .padding(.top, 5)
+                            } else {
+                                Text("no_data".localized)
+                                    .foregroundColor(.gray)
+                            }
+                        }
+                    }
                     
-                    InfoRow(
-                        title: "Macular Test",
-                        description: "macular_explanation".localized
+                    // 4. 測試說明資訊
+                    VStack(alignment: .leading, spacing: 15) {
+                        Text("understanding_results".localized)
+                            .font(.headline)
+                            .padding(.bottom, 5)
+                        
+                        InfoRow(
+                            title: "LogMAR Test",
+                            description: "decimal_acuity_explanation".localized
+                        )
+                        
+                        InfoRow(
+                            title: "Macular Test",
+                            description: "macular_explanation".localized
+                        )
+                        
+                        InfoRow(
+                            title: "Color Test",
+                            description: "color_explanation".localized
+                        )
+                    }
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.white.opacity(0.9))
                     )
+                    .cornerRadius(10)
+                    .shadow(radius: 2)
                     
-                    InfoRow(
-                        title: "Color Test",
-                        description: "color_explanation".localized
+                    // 5. 測試信息和日期
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("test_information".localized)
+                            .font(.headline)
+                        
+                        Text("\("test_date".localized) \(formatDate(Date()))")
+                            .foregroundColor(.gray)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.white.opacity(0.9))
                     )
+                    .cornerRadius(10)
+                    .shadow(radius: 2)
+                    
+                    // 6. 建議
+                    VStack(spacing: 15) {
+                        Text("recommendations".localized)
+                            .font(.headline)
+                        
+                        Text("consultation_advice".localized)
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.gray)
+                    }
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.white.opacity(0.9))
+                    )
+                    .cornerRadius(10)
+                    .shadow(radius: 2)
+                    
+                    // 按鈕區
+                    VStack(spacing: 15) {
+                        // 保存結果按鈕
+                        GradientButton(
+                            text: "save_results".localized,
+                            icon: "square.and.arrow.down",
+                            action: {
+                                showingReportCard = true
+                            }
+                        )
+                        
+                        // 重新測試按鈕
+                        GradientButton(
+                            text: "start_new_test".localized,
+                            icon: "arrow.clockwise",
+                            action: {
+                                // Reset and start over
+                                UserDefaults.standard.set(false, forKey: "hasCompletedOnboarding")
+                                
+                                // 清除所有測試結果
+                                UserDefaults.standard.removeObject(forKey: "MacularTestOption")
+                                UserDefaults.standard.removeObject(forKey: "MacularTestResult")
+                                UserDefaults.standard.removeObject(forKey: "ColorTestScore")
+                                UserDefaults.standard.removeObject(forKey: "ColorTestTotal")
+                                UserDefaults.standard.removeObject(forKey: "ColorTestResult")
+                            }
+                        )
+                    }
+                    .padding(.vertical)
                 }
                 .padding()
-                .background(
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.gray.opacity(0.1))
-                )
-                
-                // 5. 測試信息和日期
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("test_information".localized)
-                        .font(.headline)
-                    
-                    Text("\("test_date".localized) \(formatDate(Date()))")
-                        .foregroundColor(.gray)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding()
-                
-                // 6. 建議
-                VStack(spacing: 15) {
-                    Text("recommendations".localized)
-                        .font(.headline)
-                    
-                    Text("consultation_advice".localized)
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.gray)
-                }
-                .padding()
-                
-                // 保存結果按鈕
-                Button(action: {
-                    showingReportCard = true
-                }) {
-                    Text("save_results".localized)
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .frame(width: 200, height: 50)
-                        .background(Color.green)
-                        .cornerRadius(10)
-                }
-                
-                // 重新測試按鈕
-                Button(action: {
-                    // Reset and start over
-                    UserDefaults.standard.set(false, forKey: "hasCompletedOnboarding")
-                    
-                    // 清除所有測試結果
-                    UserDefaults.standard.removeObject(forKey: "MacularTestOption")
-                    UserDefaults.standard.removeObject(forKey: "MacularTestResult")
-                    UserDefaults.standard.removeObject(forKey: "ColorTestScore")
-                    UserDefaults.standard.removeObject(forKey: "ColorTestTotal")
-                    UserDefaults.standard.removeObject(forKey: "ColorTestResult")
-                }) {
-                    Text("start_new_test".localized)
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .frame(width: 200, height: 50)
-                        .background(Color.blue)
-                        .cornerRadius(10)
-                }
             }
-            .padding()
         }
-        .background(Color.white)
+        .edgesIgnoringSafeArea(.all)
         .sheet(isPresented: $showingReportCard) {
             ReportCardView(
                 username: username,
@@ -217,7 +231,7 @@ struct TestCard<Content: View>: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding()
-        .background(Color(.systemBackground))
+        .background(Color.white.opacity(0.9))
         .cornerRadius(10)
         .shadow(radius: 2)
     }
@@ -371,9 +385,6 @@ struct ReportCardView: View {
                         if colorTestScore == colorTestTotal {
                             Circle().fill(Color.green).frame(width: 10, height: 10)
                             Text("excellent".localized)
-//                        } else if colorTestScore < colorTestTotal / 2 {
-//                            Circle().fill(Color.blue).frame(width: 10, height: 10)
-//                            Text("acceptable".localized)
                         } else {
                             Circle().fill(Color.red).frame(width: 10, height: 10)
                             Text("needs_attention".localized)
@@ -395,10 +406,12 @@ struct ReportCardView: View {
                 .font(.caption)
                 .foregroundColor(.gray)
                 .multilineTextAlignment(.center)
-                .padding()
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.horizontal)
+                .padding(.bottom, 10)
         }
         .padding()
-        .frame(width: UIScreen.main.bounds.width - 40, height: 600)
+        .frame(width: UIScreen.main.bounds.width - 40, height: 650)
         .background(Color.white)
         .cornerRadius(15)
         .shadow(radius: 5)
@@ -410,7 +423,7 @@ struct ReportCardView: View {
         isSaving = true
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            let renderer = UIGraphicsImageRenderer(bounds: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 40, height: 650))
+            let renderer = UIGraphicsImageRenderer(bounds: CGRect(x: 0, y: 150, width: UIScreen.main.bounds.width - 40, height: 650))
             
             let image = renderer.image { context in
                 // 轉換 SwiftUI 視圖為 UIView

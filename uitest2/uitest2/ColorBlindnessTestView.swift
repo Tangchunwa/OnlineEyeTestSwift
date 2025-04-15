@@ -48,17 +48,41 @@ struct ColorBlindnessTestView: View {
     var body: some View {
             if isTransitioning {
                 // 顯示過渡畫面
-                Color.white.overlay(
-                    VStack {
+                ZStack {
+                    // 使用漸變背景代替純白色背景
+                    GradientBackgroundView()
+                    
+                    VStack(spacing: 20) {
+                        Image(systemName: "checkmark.circle.fill")
+                            .resizable()
+                            .frame(width: 60, height: 60)
+                            .foregroundColor(.green)
+                            .padding(.bottom, 10)
+                        
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle())
                             .scaleEffect(1.5)
                         
                         Text("all_tests_completed".localized)
-                            .font(.headline)
-                            .padding()
+                            .font(.title3)
+                            .fontWeight(.medium)
+                            .foregroundColor(Color(red: 0.1, green: 0.3, blue: 0.6))
+                            .padding(.top, 10)
+                            
+                        Text("preparing_results".localized)
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
                     }
-                )
+                    .padding(30)
+                    .background(
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Color.white.opacity(0.9))
+                            .shadow(radius: 10)
+                    )
+                    .padding(.horizontal, 30)
+                }
                 .onAppear {
                     // 短暫延遲後调用 onComplete
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -67,11 +91,13 @@ struct ColorBlindnessTestView: View {
                 }
             } else {
                 VStack(spacing: 20) {
-                    Text("color_test".localized)
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
                     
                     if currentPhotoIndex < photos.count {
+                        Text("color_test".localized)
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .padding(.top, 20)
+                        
                         Image(photos[currentPhotoIndex].image)
                             .resizable()
                             .scaledToFit()
@@ -92,23 +118,6 @@ struct ColorBlindnessTestView: View {
                                     .cornerRadius(10)
                             }
                             .padding(.horizontal)
-                        }
-                    } else {
-                        // 顯示過渡畫面
-                        VStack {
-                            ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle())
-                                .scaleEffect(1.5)
-                            
-                            Text("processing_results".localized)
-                                .font(.headline)
-                                .padding()
-                        }
-                        .onAppear {
-                            // 自動進入結果頁面
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                isTransitioning = true
-                            }
                         }
                     }
                 }
@@ -159,5 +168,8 @@ struct ColorBlindnessTestView: View {
         UserDefaults.standard.set(score, forKey: "ColorTestScore")
         UserDefaults.standard.set(photos.count, forKey: "ColorTestTotal")
         UserDefaults.standard.set(result, forKey: "ColorTestResult")
+        
+        // 直接設置 isTransitioning 為 true，跳過中間過渡畫面
+        isTransitioning = true
     }
 }

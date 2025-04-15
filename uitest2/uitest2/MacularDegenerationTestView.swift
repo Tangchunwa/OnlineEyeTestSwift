@@ -30,17 +30,41 @@ struct MacularDegenerationTestView: View {
     var body: some View {
         if isTransitioning {
             // 顯示過渡畫面
-            Color.white.overlay(
-                VStack {
+            ZStack {
+                // 使用漸變背景代替純白色背景
+                GradientBackgroundView()
+                
+                VStack(spacing: 20) {
+                    Image(systemName: "checkmark.circle.fill")
+                        .resizable()
+                        .frame(width: 60, height: 60)
+                        .foregroundColor(.green)
+                        .padding(.bottom, 10)
+                    
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle())
                         .scaleEffect(1.5)
                     
                     Text("preparing_next_test".localized)
-                        .font(.headline)
-                        .padding()
+                        .font(.title3)
+                        .fontWeight(.medium)
+                        .foregroundColor(Color(red: 0.1, green: 0.3, blue: 0.6))
+                        .padding(.top, 10)
+                        
+                    Text("processing_results".localized)
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 40)
                 }
-            )
+                .padding(30)
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.white.opacity(0.9))
+                        .shadow(radius: 10)
+                )
+                .padding(.horizontal, 30)
+            }
             .onAppear {
                 // 短暫延遲後調用 onComplete
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -48,10 +72,11 @@ struct MacularDegenerationTestView: View {
                 }
             }
         } else {
-            VStack(spacing: 25) {
+            VStack(spacing: 20) {
                 Text("macular_test".localized)
                     .font(.largeTitle)
                     .fontWeight(.bold)
+                    .padding(.top, 40)
                 
                 Text("Amsler Grid Test")
                     .font(.title3)

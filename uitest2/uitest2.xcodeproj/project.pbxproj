@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A99E9A22DAE41D300C9C650 /* CommonUIComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A99E9A12DAE41D300C9C650 /* CommonUIComponents.swift */; };
 		0AC9B6A22D525197006D2BD1 /* too_close.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0AC9B69E2D525197006D2BD1 /* too_close.mp3 */; };
 		0AC9B6A32D525197006D2BD1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AC9B69D2D525197006D2BD1 /* Preview Assets.xcassets */; };
 		0AC9B6A62D525197006D2BD1 /* FaceDistanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC9B69C2D525197006D2BD1 /* FaceDistanceManager.swift */; };
@@ -51,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A99E9A12DAE41D300C9C650 /* CommonUIComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonUIComponents.swift; sourceTree = "<group>"; };
 		0AC9B69C2D525197006D2BD1 /* FaceDistanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDistanceManager.swift; sourceTree = "<group>"; };
 		0AC9B69D2D525197006D2BD1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0AC9B69E2D525197006D2BD1 /* too_close.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = too_close.mp3; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 		5C47F7DC2CA56034001BF41F /* uitest2 */ = {
 			isa = PBXGroup;
 			children = (
+				0A99E9A12DAE41D300C9C650 /* CommonUIComponents.swift */,
 				0AD4A5682DA2E09B0095A921 /* LocalizationManager.swift */,
 				0AD4A5662DA2D7D60095A921 /* TestTransitionView.swift */,
 				0AD4A55E2DA2C8C20095A921 /* PermissionManager.swift */,
@@ -334,6 +337,7 @@
 				5C85994E2D5382570073E994 /* newVisionTestView.swift in Sources */,
 				5C8599502D5382A60073E994 /* VisionTestManager.swift in Sources */,
 				0AC9B6A62D525197006D2BD1 /* FaceDistanceManager.swift in Sources */,
+				0A99E9A22DAE41D300C9C650 /* CommonUIComponents.swift in Sources */,
 				0AD4A5672DA2D7D60095A921 /* TestTransitionView.swift in Sources */,
 				0AD4A5612DA2C8C20095A921 /* WelcomeView.swift in Sources */,
 				0AD4A5622DA2C8C20095A921 /* TestResultsView.swift in Sources */,
@@ -505,7 +509,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"uitest2/Preview Content\"";
-				DEVELOPMENT_TEAM = 3Y8DX3285Z;
+				DEVELOPMENT_TEAM = H3PZ365UG8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = uitest2/Info.plist;
@@ -525,7 +529,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tcwpanda.onlineeyetest123;
+				PRODUCT_BUNDLE_IDENTIFIER = com.raymondchau;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -543,7 +547,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"uitest2/Preview Content\"";
-				DEVELOPMENT_TEAM = 3Y8DX3285Z;
+				DEVELOPMENT_TEAM = H3PZ365UG8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = uitest2/Info.plist;
@@ -563,7 +567,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tcwpanda.onlineeyetest123;
+				PRODUCT_BUNDLE_IDENTIFIER = com.raymondchau;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;

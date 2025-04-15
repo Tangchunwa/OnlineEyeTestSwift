@@ -160,32 +160,53 @@ struct LogMARTestView: View {
                     }
                 }
                 
+                // 提取 recognized 部分並單獨顯示，使其更加明顯
+                if !testManager.recognizedText.isEmpty {
+                    VStack(alignment: .center, spacing: 10) {
+                        Text("recognized".localized)
+                            .font(.headline)
+                            .foregroundColor(.blue)
+                        
+                        Text(testManager.recognizedText)
+                            .font(.title2)
+                            .fontWeight(.medium)
+                            .foregroundColor(.black)
+                            .padding(.vertical, 5)
+                            .frame(maxWidth: .infinity)
+                            .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color.blue.opacity(0.1))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .stroke(Color.blue.opacity(0.5), lineWidth: 1)
+                                    )
+                            )
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical, 5)
+                }
+                
                 //Spacer()
                 
-                // Debug information area
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("input_letters".localized)
-                        .font(.headline)
-                    TextField("enter_letters".localized, text: $testManager.userInput)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .autocapitalization(.allCharacters)
+                //Debug information area
+                // VStack(alignment: .leading, spacing: 10) {
+                //     Text("input_letters".localized)
+                //         .font(.headline)
+                //     TextField("enter_letters".localized, text: $testManager.userInput)
+                //         .textFieldStyle(RoundedBorderTextFieldStyle())
+                //         .autocapitalization(.allCharacters)
                     
-                    Button("confirm_answer".localized) {
-                        testManager.processInputText()
-                        testManager.userInput=""
-                    }
-                    .buttonStyle(.bordered)
-                    .disabled(testManager.userInput.isEmpty)
-                    
-                    VStack(alignment: .leading) {
-                        Text("\("recognized".localized): \(testManager.recognizedText)")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                    }
-                }
-                .padding()
-                .background(Color.gray.opacity(0.1))
-                .cornerRadius(10)
+                //     Button("confirm_answer".localized) {
+                //         testManager.processInputText()
+                //         testManager.userInput=""
+                //     }
+                //     .buttonStyle(.bordered)
+                //     .disabled(testManager.userInput.isEmpty)
+                // }
+                // .padding()
+                // .background(Color.gray.opacity(0.1))
+                // .cornerRadius(10)
+
             }
             .padding()
             .onAppear {
@@ -198,17 +219,41 @@ struct LogMARTestView: View {
             }
         } else {
             // When test is completed, immediately call onComplete
-            Color.white.overlay(
-                VStack {
+            ZStack {
+                // 使用漸變背景代替純白色背景
+                GradientBackgroundView()
+                
+                VStack(spacing: 20) {
+                    Image(systemName: "checkmark.circle.fill")
+                        .resizable()
+                        .frame(width: 60, height: 60)
+                        .foregroundColor(.green)
+                        .padding(.bottom, 10)
+                    
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle())
                         .scaleEffect(1.5)
                     
                     Text("preparing_next_test".localized)
-                        .font(.headline)
-                        .padding()
+                        .font(.title3)
+                        .fontWeight(.medium)
+                        .foregroundColor(Color(red: 0.1, green: 0.3, blue: 0.6))
+                        .padding(.top, 10)
+                        
+                    Text("processing_results".localized)
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 40)
                 }
-            )
+                .padding(30)
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.white.opacity(0.9))
+                        .shadow(radius: 10)
+                )
+                .padding(.horizontal, 30)
+            }
             .onAppear {
                 // 停止相機和錄音
                 faceDistanceManager.stopCameraDetection()
@@ -236,62 +281,87 @@ struct EyeTestInstructionsView: View {
     @Binding var showingInstructions: Bool
     
     var body: some View {
-        VStack(spacing: 30) {
-            Text("vision_test_instructions".localized)
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            
-            VStack(alignment: .leading, spacing: 20) {
-                InstructionStep(
-                    number: 1,
-                    title: "prepare_environment".localized,
-                    description: "find_well_lit_room".localized
-                )
+        GeometryReader { geometry in
+            ZStack {
+                // 使用可重用的漸變背景視圖
+                GradientBackgroundView()
                 
-                InstructionStep(
-                    number: 2,
-                    title: "distance".localized,
-                    description: "position_distance".localized
-                )
-                
-                InstructionStep(
-                    number: 3,
-                    title: "right_eye_test".localized,
-                    description: "cover_left_eye".localized
-                )
-                
-                InstructionStep(
-                    number: 4,
-                    title: "left_eye_test".localized,
-                    description: "after_right_eye".localized
-                )
-                
-                InstructionStep(
-                    number: 5,
-                    title: "voice_input".localized,
-                    description: "speak_letters".localized
-                )
+                // 主內容
+                VStack(spacing: 30) {
+                    Text("vision_test_instructions".localized)
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color(red: 0.1, green: 0.3, blue: 0.6))
+                    
+                    VStack(alignment: .leading, spacing: 20) {
+                        InstructionStep(
+                            number: 1,
+                            title: "prepare_environment".localized,
+                            description: "find_well_lit_room".localized
+                        )
+                        
+                        InstructionStep(
+                            number: 2,
+                            title: "distance".localized,
+                            description: "position_distance".localized
+                        )
+                        
+                        InstructionStep(
+                            number: 3,
+                            title: "right_eye_test".localized,
+                            description: "cover_left_eye".localized
+                        )
+                        
+                        InstructionStep(
+                            number: 4,
+                            title: "left_eye_test".localized,
+                            description: "after_right_eye".localized
+                        )
+                        
+                        InstructionStep(
+                            number: 5,
+                            title: "voice_input".localized,
+                            description: "speak_letters".localized
+                        )
+                    }
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 15)
+                            .fill(Color.white)
+                            .shadow(radius: 5)
+                    )
+                    
+                    Button(action: {
+                        showingInstructions = false
+                    }) {
+                        HStack(spacing: 15) {
+                            Text("start_test".localized)
+                                .font(.headline)
+                                .foregroundColor(.white)
+                            
+                            Image(systemName: "arrow.right.circle.fill")
+                                .font(.system(size: 22))
+                                .foregroundColor(.white)
+                        }
+                        .frame(minWidth: 220, minHeight: 55)
+                        .background(
+                            LinearGradient(
+                                gradient: Gradient(colors: [
+                                    Color(red: 0.2, green: 0.5, blue: 0.9),
+                                    Color(red: 0.3, green: 0.6, blue: 1.0)
+                                ]),
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                        .cornerRadius(15)
+                        .shadow(color: Color(red: 0.2, green: 0.4, blue: 0.8).opacity(0.4), radius: 8, x: 0, y: 4)
+                    }
+                    .padding(.top, 20)
+                }
+                .padding()
             }
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 15)
-                    .fill(Color.white)
-                    .shadow(radius: 5)
-            )
-            
-            Button(action: {
-                showingInstructions = false
-            }) {
-                Text("start_test".localized)
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(width: 200, height: 50)
-                    .background(Color.blue)
-                    .cornerRadius(10)
-            }
-            .padding(.top, 20)
         }
-        .padding()
     }
 }
 
