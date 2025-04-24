@@ -7,7 +7,7 @@ class FaceDistanceManager: NSObject, ObservableObject, ARSessionDelegate {
     @Published var isTracking: Bool = false
     
     private let minIdealDistance: Float = 0.55 // 55 cm
-    private let maxIdealDistance: Float = 0.60 // 60 cm
+    private let maxIdealDistance: Float = 0.65 // 60 cm
     private let smoothingFactor: Float = 0.1  // Smooth out sudden changes
     
     private var arSession: ARSession?

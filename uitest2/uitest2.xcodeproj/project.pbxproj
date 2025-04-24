@@ -509,7 +509,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"uitest2/Preview Content\"";
-				DEVELOPMENT_TEAM = H3PZ365UG8;
+				DEVELOPMENT_TEAM = 3Y8DX3285Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = uitest2/Info.plist;
@@ -529,7 +529,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.raymondchau;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tcwpanda.eyetest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -547,7 +547,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"uitest2/Preview Content\"";
-				DEVELOPMENT_TEAM = H3PZ365UG8;
+				DEVELOPMENT_TEAM = 3Y8DX3285Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = uitest2/Info.plist;
@@ -567,7 +567,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.raymondchau;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tcwpanda.eyetest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;

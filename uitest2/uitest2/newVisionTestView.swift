@@ -129,12 +129,6 @@ struct LogMARTestView: View {
                                     .fill(Color.red)
                                     .frame(width: 10, height: 10)
                                     .opacity(testManager.recordingAnimationOpacity[index])
-                                    .animation(
-                                        Animation.easeInOut(duration: 0.5)
-                                            .repeatForever()
-                                            .delay(0.2 * Double(index)),
-                                        value: testManager.recordingAnimationOpacity[index]
-                                    )
                             }
                         }
                     }

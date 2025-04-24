@@ -61,6 +61,7 @@ class VisionTestManager: ObservableObject {
     // Initialization
     init() {
         generateAllLevelsForBothEyes()
+        startRecordingAnimation()
     }
     
     // Generate different letter sequences for both eyes
@@ -105,7 +106,7 @@ class VisionTestManager: ObservableObject {
     
     // Get current level font size
     func getCurrentFontSize() -> CGFloat {
-        let baseFontSize: CGFloat = 100
+        let baseFontSize: CGFloat = 88
         let scaleFactor: CGFloat = 0.7
         return baseFontSize * pow(scaleFactor, CGFloat(currentLevel))
     }
@@ -197,7 +198,6 @@ class VisionTestManager: ObservableObject {
             isRecording = true
             updateCurrentLetters()
             startTimer()
-            startRecordingAnimation()
             
         } catch {
             statusMessage = "Recording setup failed: \(error.localizedDescription)"

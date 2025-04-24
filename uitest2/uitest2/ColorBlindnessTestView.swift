@@ -90,18 +90,18 @@ struct ColorBlindnessTestView: View {
                     }
                 }
             } else {
-                VStack(spacing: 20) {
+                VStack(spacing: 15) {
                     
                     if currentPhotoIndex < photos.count {
                         Text("color_test".localized)
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                        .padding(.top, 20)
+                        .padding(.top, 0)
                         
                         Image(photos[currentPhotoIndex].image)
                             .resizable()
                             .scaledToFit()
-                            .frame(height: 200)
+                            .frame(height: 280)
                         
                         Text("What number do you see in the image?".localized)
                             .padding()
@@ -171,5 +171,21 @@ struct ColorBlindnessTestView: View {
         
         // 直接設置 isTransitioning 為 true，跳過中間過渡畫面
         isTransitioning = true
+    }
+}
+
+
+#Preview {
+    ColorBlindnessTestView(onComplete: {
+        print("Test completed")
+    })
+}
+
+// Or using the traditional PreviewProvider style:
+struct ColorBlindnessTestView_Previews: PreviewProvider {
+    static var previews: some View {
+        ColorBlindnessTestView(onComplete: {
+            print("Test completed")
+        })
     }
 }
