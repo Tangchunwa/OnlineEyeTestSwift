@@ -46,85 +46,132 @@ struct ColorBlindnessTestView: View {
     ]
     
     var body: some View {
-            if isTransitioning {
-                // 顯示過渡畫面
-                ZStack {
-                    // 使用漸變背景代替純白色背景
-                    GradientBackgroundView()
-                    
-                    VStack(spacing: 20) {
-                        Image(systemName: "checkmark.circle.fill")
-                            .resizable()
-                            .frame(width: 60, height: 60)
-                            .foregroundColor(.green)
-                            .padding(.bottom, 10)
-                        
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle())
-                            .scaleEffect(1.5)
-                        
-                        Text("all_tests_completed".localized)
-                            .font(.title3)
-                            .fontWeight(.medium)
-                            .foregroundColor(Color(red: 0.1, green: 0.3, blue: 0.6))
-                            .padding(.top, 10)
-                            
-                        Text("preparing_results".localized)
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 40)
-                    }
-                    .padding(30)
-                    .background(
-                        RoundedRectangle(cornerRadius: 20)
-                            .fill(Color.white.opacity(0.9))
-                            .shadow(radius: 10)
-                    )
-                    .padding(.horizontal, 30)
+        if isTransitioning {
+            // 过渡画面保持不变…
+            ZStack {
+                GradientBackgroundView()
+                VStack(spacing: 20) {
+                    Image(systemName: "checkmark.circle.fill")
+                        .resizable()
+                        .frame(width: 60, height: 60)
+                        .foregroundColor(.green)
+                        .padding(.bottom, 10)
+
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .scaleEffect(1.5)
+
+                    Text("all_tests_completed".localized)
+                        .font(.title3)
+                        .fontWeight(.medium)
+                        .foregroundColor(Color(red: 0.1, green: 0.3, blue: 0.6))
+                        .padding(.top, 10)
+
+                    Text("preparing_results".localized)
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 40)
                 }
-                .onAppear {
-                    // 短暫延遲後调用 onComplete
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        onComplete?()
-                    }
+                .padding(30)
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.white.opacity(0.9))
+                        .shadow(radius: 10)
+                )
+                .padding(.horizontal, 30)
+            }
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    onComplete?()
                 }
-            } else {
-                VStack(spacing: 15) {
-                    
-                    if currentPhotoIndex < photos.count {
-                        Text("color_test".localized)
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .padding(.top, 0)
-                        
-                        Image(photos[currentPhotoIndex].image)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 280)
-                        
-                        Text("What number do you see in the image?".localized)
-                            .padding()
-                        
-                        ForEach(choices[currentPhotoIndex], id: \.self) { choice in
+            }
+        } else {
+            VStack {
+                // 标题
+                Text("color_test".localized)  // 或直接 "Color Blindness Test"
+                    .font(.system(size: 34, weight: .bold))
+                    .padding()
+
+                if currentPhotoIndex < photos.count {
+                    // 图像
+                    Image(photos[currentPhotoIndex].image)
+                        .resizable()
+                        .interpolation(.none)
+                        .scaledToFill()
+                        .frame(width: 280, height: 280)
+                        .clipped()
+                        .padding()
+
+                    // 问题
+                    Text("What number do you see in the image?".localized)
+                        .font(.system(size: 28))
+                        .padding()
+
+                    // 拆分选项
+                    let currentChoices = choices[currentPhotoIndex]
+                    let optionChoices = currentChoices.filter { $0 != "No number" }
+                    let noNumberChoice = currentChoices.first(where: { $0 == "No number" })
+
+                    // 选项网格
+                    VStack(spacing: 16) {
+                        ForEach(0..<optionChoices.count/2, id: \.self) { row in
+                            HStack(spacing: 16) {
+                                let leftIndex = row * 2
+                                let rightIndex = leftIndex + 1
+
+                                Button(action: {
+                                    checkAnswer(optionChoices[leftIndex])
+                                }) {
+                                    Text(optionChoices[leftIndex])
+                                        .font(.system(size: 42))
+                                        .padding()
+                                        .frame(maxWidth: .infinity)
+                                        .background(Color.blue)
+                                        .foregroundColor(.white)
+                                        .cornerRadius(10)
+                                }
+
+                                Button(action: {
+                                    checkAnswer(optionChoices[rightIndex])
+                                }) {
+                                    Text(optionChoices[rightIndex])
+                                        .font(.system(size: 42))
+                                        .padding()
+                                        .frame(maxWidth: .infinity)
+                                        .background(Color.blue)
+                                        .foregroundColor(.white)
+                                        .cornerRadius(10)
+                                }
+                            }
+                            .padding(.horizontal)
+                        }
+
+                        // “No number” 单独一行
+                        if let noNum = noNumberChoice {
                             Button(action: {
-                                checkAnswer(choice)
+                                checkAnswer(noNum)
                             }) {
-                                Text(choice)
+                                Text(noNum)
+                                    .font(.system(size: 42))
                                     .padding()
                                     .frame(maxWidth: .infinity)
-                                    .background(Color.blue)
+                                    .background(Color.gray)
                                     .foregroundColor(.white)
                                     .cornerRadius(10)
                             }
                             .padding(.horizontal)
+                            .padding(.top, 10)
                         }
                     }
+                } else {
+                    // 如果用 isTransitioning 处理“完成”逻辑，这里可留空
                 }
-                .padding()
-                .background(Color.white)
             }
+            .padding()
+            .background(Color.white)
         }
+    }
     
     func checkAnswer(_ selectedAnswer: String) {
         userAnswers.append(selectedAnswer)
@@ -175,17 +222,20 @@ struct ColorBlindnessTestView: View {
 }
 
 
-#Preview {
-    ColorBlindnessTestView(onComplete: {
-        print("Test completed")
-    })
-}
-
-// Or using the traditional PreviewProvider style:
-struct ColorBlindnessTestView_Previews: PreviewProvider {
-    static var previews: some View {
+    #Preview {
         ColorBlindnessTestView(onComplete: {
             print("Test completed")
         })
     }
+
+    // Or using the traditional PreviewProvider style:
+    struct ColorBlindnessTestView_Previews: PreviewProvider {
+        static var previews: some View {
+            ColorBlindnessTestView(onComplete: {
+                print("Test completed")
+            })
+        }
+        
+    
+
 }
