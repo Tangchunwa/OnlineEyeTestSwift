@@ -5,6 +5,13 @@ struct TestTransitionView: View {
     let nextTest: String
     let onContinue: () -> Void
     
+    // Add state for countdown timer
+    @State private var timeRemaining: Int = 5
+    @State private var isTimerRunning: Bool = true
+    
+    // Timer setup
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -40,12 +47,16 @@ struct TestTransitionView: View {
                     
                     Spacer()
                     
-                    // 繼續按鈕 - 使用 GradientButton 替換原來的按鈕
-                    GradientButton(
-                        text: "continue_next_test".localized,
-                        icon: "arrow.right.circle.fill",
-                        action: onContinue
-                    )
+                    // Countdown timer display
+                    VStack(spacing: 10) {
+                        Text("Starting next test in")
+                            .font(.headline)
+                            .foregroundColor(.gray)
+                        
+                        Text("\(timeRemaining)")
+                            .font(.system(size: 48, weight: .bold))
+                            .foregroundColor(.blue)
+                    }
                     .padding(.bottom, 60)
                 }
                 .padding()
@@ -56,6 +67,16 @@ struct TestTransitionView: View {
                         .shadow(radius: 10)
                 )
                 .padding(.horizontal, 20)
+            }
+        }
+        .onReceive(timer) { _ in
+            if isTimerRunning {
+                if timeRemaining > 0 {
+                    timeRemaining -= 1
+                } else {
+                    isTimerRunning = false
+                    onContinue()
+                }
             }
         }
     }

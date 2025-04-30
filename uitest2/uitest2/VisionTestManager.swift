@@ -11,7 +11,8 @@ class VisionTestManager: ObservableObject {
     @Published var userInput = ""
     @Published var isRecording = false
     @Published var recognizedText = ""
-    @Published var timeRemaining = 10
+    let init_timeRemaining = 60
+    @Published var timeRemaining : Int
     @Published var statusMessage = "Ready to start"
     @Published var recordingAnimationOpacity = [1.0, 1.0, 1.0]
     @Published var timeoutCount = 0
@@ -60,8 +61,10 @@ class VisionTestManager: ObservableObject {
     
     // Initialization
     init() {
+        self.timeRemaining = init_timeRemaining
         generateAllLevelsForBothEyes()
         startRecordingAnimation()
+       
     }
     
     // Generate different letter sequences for both eyes
@@ -133,7 +136,7 @@ class VisionTestManager: ObservableObject {
                 currentLevel = 0
                 timeoutCount = 0
                 statusMessage = "Switching to Left Eye"
-                stopRecording()
+                restartRecording()
                 updateCurrentLetters() // Generate new letters for left eye
             } else {
                 bothEyesCompleted = true
@@ -206,10 +209,11 @@ class VisionTestManager: ObservableObject {
     
     // Process recognized text
     private func processRecognizedText(_ text: String) {
-        if text.contains("RETRY") {
-            statusMessage = "Detected 'RETRY', restarting"
-            regenerateCurrentLevel()
-            restartCurrentLevel()
+        if text.contains("SKIP") {
+            statusMessage = "Detected 'skip'"
+            //regenerateCurrentLevel()
+            //restartCurrentLevel()
+            processInputText()
             return
         }
         
@@ -304,7 +308,7 @@ class VisionTestManager: ObservableObject {
         
         isRecording = false
         timer?.invalidate()
-        timeRemaining = 10
+        timeRemaining = init_timeRemaining
     }
     
     // Toggle recording state
@@ -331,7 +335,7 @@ class VisionTestManager: ObservableObject {
     
     // Start timer
     private func startTimer() {
-        timeRemaining = 10
+        timeRemaining = init_timeRemaining
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             guard let self = self else { return }
             
@@ -340,7 +344,7 @@ class VisionTestManager: ObservableObject {
             } else {
                 self.statusMessage = "Time's up, restarting"
                 timeoutCount += 1
-                if self.timeoutCount >= 3 {
+                if self.timeoutCount >= 1 {
                     processInputText()
                 }else{
                     self.restartCurrentLevel()

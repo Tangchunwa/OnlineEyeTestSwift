@@ -24,6 +24,9 @@ struct LogMARTestView: View {
                     Text("vision_test".localized)
                         .font(.largeTitle)
                         .fontWeight(.bold)
+                        .onAppear(perform:{
+                            testManager.startRecording()
+                        })
                     
                     Text("\(testManager.currentEye.description) \("eye".localized) - \("level".localized) \(testManager.currentLevel + 1)/5")
                         .font(.title2)
@@ -36,11 +39,30 @@ struct LogMARTestView: View {
                                 //first close camera ,then set distance to 0,then send alert switch to right eye then open camera
                                 faceDistanceManager.stopCameraDetection()
                                 faceDistanceManager.distance=0
-                                let alert = UIAlertController(title: "switch_to_left_eye".localized, message: "please_cover_right_eye".localized, preferredStyle: .alert)
-                                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-                                    faceDistanceManager.startCameraDetection()
-                                }))
+                                let alert = UIAlertController(title: "switch_to_left_eye".localized, message: "please_cover_right_eye\n\nThis alert will close in 5 seconds.", preferredStyle: .alert)
+
+                                // Increase font size
+                                let titleAttr = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24)]
+                                let messageAttr = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)]
+
+                                alert.setValue(NSAttributedString(string: "switch_to_left_eye".localized, attributes: titleAttr), forKey: "attributedTitle")
+                                alert.setValue(NSAttributedString(string: "This alert will close in 5 seconds.", attributes: messageAttr), forKey: "attributedMessage")
+
                                 UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
+
+                                // Countdown timer
+                                var countdown = 5
+                                Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+                                    countdown -= 1
+                                    if countdown == 0 {
+                                        timer.invalidate()
+                                        alert.dismiss(animated: true, completion: {
+                                            faceDistanceManager.startCameraDetection()
+                                        })
+                                    } else {
+                                        alert.message = "This alert will close in \(countdown) seconds."
+                                    }
+                                }
                             }
                         )}
                     else{EyeCoverageReminderView(currentEye: testManager.currentEye)

@@ -168,7 +168,9 @@ struct LocalizedStringKey {
         "disclaimer": "This report is for informational purposes only and does not constitute medical advice. Please consult with an eye care professional for a comprehensive examination.",
         "save_success": "Success",
         "save_error": "Error",
-        "image_saved_to_photos": "Image saved to Photos"
+        "image_saved_to_photos": "Image saved to Photos",
+        "Recog_success": "Recognition successful",
+        "what_number": "What number do you see in the image?",
     ]
     
     // 中文翻譯
@@ -301,7 +303,9 @@ struct LocalizedStringKey {
         "disclaimer": "本報告僅供參考，不構成醫療建議。請諮詢眼科專業人士進行全面檢查。",
         "save_success": "成功",
         "save_error": "錯誤",
-        "image_saved_to_photos": "圖片已保存到照片"
+        "image_saved_to_photos": "圖片已保存到照片",
+        "Recog_success": "識別成功",
+        "what_number": "您在圖像中看到什麼數字？",
     ]
     
     // 語言字典
